@@ -63,6 +63,54 @@ Not selected for now:
 - `~/.mlx-venv` — retained temporarily for comparison/rollback only because it is the currently serving MLX environment on port `8080`.
 - `~/Projects/OpenClaw/venv` — retained as an application-specific project environment, not the canonical MLX environment.
 
+### Canonical local model directory candidate
+
+Selected candidate: `~/models`
+
+Why:
+- Simpler and more conventional lowercase path for operator-facing documentation
+- Better fit for a curated local model inventory concept
+- Easier to reference consistently across lab notes and local client examples
+
+Not selected for now:
+- `~/Models` — retained temporarily as an observed duplicate local model location
+- `~/.cache/huggingface/hub` — treated separately as the Hugging Face cache layer, not the canonical local model directory
+
+### Canonical MLX server launch pattern (validated)
+
+Environment: `~/mlx-env`
+Port: `8080`
+API shape: OpenAI-compatible `/v1`
+Bind target: `127.0.0.1`
+Default model reference style: Hugging Face model ID
+
+Command:
+```bash
+source ~/mlx-env/bin/activate
+python -m mlx_lm server \
+  --model mlx-community/Qwen2.5-32B-Instruct-4bit \
+  --port 8080 \
+  --host 127.0.0.1
+```
+
+Why:
+- Matches the currently working OpenAI-compatible MLX API pattern already observed on port `8080`
+- Keeps local client configuration simple and consistent
+- Preserves Hugging Face as the upstream integration path while local model inventory is still being clarified
+- Fits the local-first / loopback-first intended posture for this lab
+
+Validation evidence:
+- Server successfully started from `~/mlx-env`
+- `/health` endpoint returned `{"status": "ok"}`
+- `/v1/models` returned model list
+- Aider successfully connected using OpenAI-compatible API
+- No dependency on `~/.mlx-venv`
+
+Current live variance:
+- Previous server used `~/.mlx-venv` and `0.0.0.0`
+- Canonical pattern now uses `~/mlx-env` and `127.0.0.1`
+- No cleanup has been performed yet
+
 ---
 
 ## Commands That Actually Work
@@ -114,3 +162,6 @@ Open questions:
 ---
 
 ## Next Actions
+
+- Record canonical local model directory candidate in lab notes
+- Define canonical MLX server launch command from the selected env and model reference style
