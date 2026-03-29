@@ -152,13 +152,12 @@ Environment under review:
 
 Current assessment:
 - `~/mlx-env` is the validated canonical MLX environment
-- `~/.mlx-venv` is no longer required for the documented default serving pattern
-- The previously stale active OpenClaw lab-plan reference has been updated to `~/mlx-env`
-- Remaining `.mlx-venv` references are historical evidence and past-state documentation
-- No deletion has been performed yet
+- `~/.mlx-venv` has been removed
+- Canonical HF-ID serving was revalidated successfully after retirement
+- Remaining `.mlx-venv` references are historical documentation only
 
 Retirement criterion:
-- Remove `~/.mlx-venv` only after confirming there are no remaining required references or unique capabilities
+- Retirement completed; historical references may be cleaned up separately
 
 ### Canonical MLX server launch pattern (validated)
 
