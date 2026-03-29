@@ -127,6 +127,20 @@ Observed tradeoff:
 - recommended current default remains HF-ID serving
 - local-path serving is now a validated controlled option
 
+### Duplicate local model directory retirement assessment
+
+Directory retired:
+- `~/Models`
+
+Current assessment:
+- `~/models` is the canonical local model directory
+- Active documentation references were updated from `~/Models` to `~/models`
+- The duplicate `~/Models` directory has been removed
+- Canonical HF-ID serving was revalidated successfully after retirement
+
+Status note:
+- Duplicate local model directory retirement completed
+
 ### Default serving style decision
 
 Selected default:
