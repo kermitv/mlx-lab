@@ -76,6 +76,57 @@ Not selected for now:
 - `~/Models` — retained temporarily as an observed duplicate local model location
 - `~/.cache/huggingface/hub` — treated separately as the Hugging Face cache layer, not the canonical local model directory
 
+### Local model inventory (current observed state)
+
+Observed directories:
+- `~/models`
+- `~/Models`
+
+Observed model families:
+- `Qwen2.5-7B-4bit`
+- `Qwen2.5-Coder-32B-4bit`
+
+Observed sizes:
+- `Qwen2.5-7B-4bit` ≈ `4.0G`
+- `Qwen2.5-Coder-32B-4bit` ≈ `17G`
+
+Current state:
+- `~/models` and `~/Models` appear to be duplicate local model directories
+- No cleanup has been performed yet
+- Current validated server pattern still uses Hugging Face model IDs, not local paths
+
+First local-path serving candidate:
+- `~/models/Qwen2.5-7B-4bit`
+
+Why this candidate:
+- Smaller and lower-risk for first local-path validation
+- Fastest path to proving the local-path serving pattern
+- Leaves the larger 32B model for later controlled validation
+
+### Local-path serving validation (7B model)
+
+Validated command:
+    source ~/mlx-env/bin/activate
+    python -m mlx_lm server \
+      --model ~/models/Qwen2.5-7B-4bit \
+      --port 8080 \
+      --host 127.0.0.1
+
+Validation results:
+- server started successfully from explicit local path
+- `/health` returned `{"status": "ok"}`
+- `/v1/models` returned the local-path model entry
+- `/v1/chat/completions` succeeded
+
+Observed model ID:
+- `/Users/kermitv/models/Qwen2.5-7B-4bit`
+
+Observed tradeoff:
+- local-path serving gives stronger control over exact artifacts
+- Hugging Face ID serving remains cleaner for client ergonomics
+- recommended current default remains HF-ID serving
+- local-path serving is now a validated controlled option
+
 ### Canonical MLX server launch pattern (validated)
 
 Environment: `~/mlx-env`
@@ -216,3 +267,4 @@ Future promotion note:
 
 - Record canonical local model directory candidate in lab notes
 - Define canonical MLX server launch command from the selected env and model reference style
+- decide canonical default serving style (HF-ID default vs local-path default)
