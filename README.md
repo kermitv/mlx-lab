@@ -300,12 +300,20 @@ Future promotion note:
 - [x] Token stored in Keychain and retrievable
 - [x] README reflects validated state only (no speculation)
 
-### Phase 2 — Model control (pending)
+### Phase 2 — Model control (complete)
 
-- [ ] Canonical model directory enforced (`~/models`)
-- [ ] HF cache vs local model inventory clarified
-- [ ] Optional: migrate one model to local-path serving
-- [ ] Remove or archive unused MLX environments
+- [x] Canonical model directory enforced (`~/models`)
+- [x] HF cache vs local model inventory clarified
+- [x] Optional: migrate one model to local-path serving
+- [x] Remove or archive unused MLX environments
+
+Done:
+- `~/models` is canonical
+- `~/Models` retired
+- `~/.mlx-venv` retired
+- `~/mlx-env` remains canonical
+- HF-ID serving revalidated successfully
+- local-path serving validated
 
 ---
 
