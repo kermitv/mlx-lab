@@ -1,0 +1,221 @@
+$ sh -c 
+  ports="8000 8001 8080 8081 11434 18789 3000 5000"
+  for p in $ports; do
+    echo
+    echo "## probing http://127.0.0.1:$p/"
+    curl -sS -m 2 "http://127.0.0.1:$p/" || true
+    echo
+    echo "## probing http://127.0.0.1:$p/v1/models"
+    curl -sS -m 2 "http://127.0.0.1:$p/v1/models" || true
+    echo
+    echo "## probing http://127.0.0.1:$p/health"
+    curl -sS -m 2 "http://127.0.0.1:$p/health" || true
+  done
+
+
+## probing http://127.0.0.1:8000/
+curl: (7) Failed to connect to 127.0.0.1 port 8000 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:8000/v1/models
+curl: (7) Failed to connect to 127.0.0.1 port 8000 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:8000/health
+curl: (7) Failed to connect to 127.0.0.1 port 8000 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:8001/
+curl: (7) Failed to connect to 127.0.0.1 port 8001 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:8001/v1/models
+curl: (7) Failed to connect to 127.0.0.1 port 8001 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:8001/health
+curl: (7) Failed to connect to 127.0.0.1 port 8001 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:8080/
+Not Found
+## probing http://127.0.0.1:8080/v1/models
+{"object": "list", "data": [{"id": "mlx-community/Qwen2.5-Coder-32B-Instruct-4bit", "object": "model", "created": 1774807917}, {"id": "mlx-community/Qwen2.5-7B-Instruct-4bit", "object": "model", "created": 1774807917}, {"id": "mlx-community/Qwen2.5-32B-Instruct-4bit", "object": "model", "created": 1774807917}]}
+## probing http://127.0.0.1:8080/health
+{"status": "ok"}
+## probing http://127.0.0.1:8081/
+curl: (7) Failed to connect to 127.0.0.1 port 8081 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:8081/v1/models
+curl: (7) Failed to connect to 127.0.0.1 port 8081 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:8081/health
+curl: (7) Failed to connect to 127.0.0.1 port 8081 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:11434/
+curl: (7) Failed to connect to 127.0.0.1 port 11434 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:11434/v1/models
+curl: (7) Failed to connect to 127.0.0.1 port 11434 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:11434/health
+curl: (7) Failed to connect to 127.0.0.1 port 11434 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:18789/
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenClaw Control</title>
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <script>
+      (function () {
+        var THEMES = { claw: 1, knot: 1, dash: 1 };
+        var MODES = { system: 1, light: 1, dark: 1 };
+        var LEGACY = {
+          dark: "claw:dark",
+          light: "claw:light",
+          openknot: "knot:dark",
+          fieldmanual: "dash:dark",
+          clawdash: "dash:light",
+          system: "claw:system",
+        };
+        try {
+          var keys = Object.keys(localStorage);
+          var raw;
+          for (var i = 0; i < keys.length; i++) {
+            if (keys[i].indexOf("openclaw.control.settings.v1") === 0) {
+              raw = localStorage.getItem(keys[i]);
+              if (raw) break;
+            }
+          }
+          if (!raw) return;
+          var s = JSON.parse(raw);
+          var t = s && s.theme;
+          var m = s && s.themeMode;
+          if (typeof t !== "string") t = "";
+          if (typeof m !== "string") m = "";
+          var legacy = LEGACY[t];
+          var theme = THEMES[t] ? t : legacy ? legacy.split(":")[0] : "claw";
+          var mode = MODES[m] ? m : legacy ? legacy.split(":")[1] : "system";
+          if (mode === "system") {
+            mode = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+          }
+          var resolved =
+            theme === "knot"
+              ? mode === "light"
+                ? "openknot-light"
+                : "openknot"
+              : theme === "dash"
+                ? mode === "light"
+                  ? "dash-light"
+                  : "dash"
+                : mode === "light"
+                  ? "light"
+                  : "dark";
+          document.documentElement.setAttribute("data-theme", resolved);
+          document.documentElement.setAttribute(
+            "data-theme-mode",
+            resolved.indexOf("light") !== -1 ? "light" : "dark",
+          );
+        } catch (e) {}
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index-Ij2djnNX.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/lit-BZwq2xLD.js">
+    <link rel="modulepreload" crossorigin href="./assets/format-DeRVtGzv.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-CmL01vk_.css">
+  </head>
+  <body>
+    <openclaw-app></openclaw-app>
+  </body>
+</html>
+
+## probing http://127.0.0.1:18789/v1/models
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenClaw Control</title>
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <script>
+      (function () {
+        var THEMES = { claw: 1, knot: 1, dash: 1 };
+        var MODES = { system: 1, light: 1, dark: 1 };
+        var LEGACY = {
+          dark: "claw:dark",
+          light: "claw:light",
+          openknot: "knot:dark",
+          fieldmanual: "dash:dark",
+          clawdash: "dash:light",
+          system: "claw:system",
+        };
+        try {
+          var keys = Object.keys(localStorage);
+          var raw;
+          for (var i = 0; i < keys.length; i++) {
+            if (keys[i].indexOf("openclaw.control.settings.v1") === 0) {
+              raw = localStorage.getItem(keys[i]);
+              if (raw) break;
+            }
+          }
+          if (!raw) return;
+          var s = JSON.parse(raw);
+          var t = s && s.theme;
+          var m = s && s.themeMode;
+          if (typeof t !== "string") t = "";
+          if (typeof m !== "string") m = "";
+          var legacy = LEGACY[t];
+          var theme = THEMES[t] ? t : legacy ? legacy.split(":")[0] : "claw";
+          var mode = MODES[m] ? m : legacy ? legacy.split(":")[1] : "system";
+          if (mode === "system") {
+            mode = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+          }
+          var resolved =
+            theme === "knot"
+              ? mode === "light"
+                ? "openknot-light"
+                : "openknot"
+              : theme === "dash"
+                ? mode === "light"
+                  ? "dash-light"
+                  : "dash"
+                : mode === "light"
+                  ? "light"
+                  : "dark";
+          document.documentElement.setAttribute("data-theme", resolved);
+          document.documentElement.setAttribute(
+            "data-theme-mode",
+            resolved.indexOf("light") !== -1 ? "light" : "dark",
+          );
+        } catch (e) {}
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index-Ij2djnNX.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/lit-BZwq2xLD.js">
+    <link rel="modulepreload" crossorigin href="./assets/format-DeRVtGzv.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-CmL01vk_.css">
+  </head>
+  <body>
+    <openclaw-app></openclaw-app>
+  </body>
+</html>
+
+## probing http://127.0.0.1:18789/health
+{"ok":true,"status":"live"}
+## probing http://127.0.0.1:3000/
+curl: (7) Failed to connect to 127.0.0.1 port 3000 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:3000/v1/models
+curl: (7) Failed to connect to 127.0.0.1 port 3000 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:3000/health
+curl: (7) Failed to connect to 127.0.0.1 port 3000 after 0 ms: Couldn't connect to server
+
+## probing http://127.0.0.1:5000/
+
+## probing http://127.0.0.1:5000/v1/models
+
+## probing http://127.0.0.1:5000/health

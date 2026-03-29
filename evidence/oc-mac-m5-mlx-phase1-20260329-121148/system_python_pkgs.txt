@@ -1,0 +1,7 @@
+$ sh -c 
+  python3 -m pip list 2>/dev/null | egrep -i "mlx|mlx-lm|torch|transformers|huggingface|sentencepiece|fastapi|uvicorn|openai|llama|safetensors|tokenizers" || true
+  echo
+  python3 -m pip show mlx mlx-lm 2>/dev/null || true
+
+openai            2.30.0
+

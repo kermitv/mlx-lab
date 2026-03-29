@@ -1,0 +1,293 @@
+$ sh -c 
+  {
+    echo "# zsh history hints"
+    grep -Ei "mlx|mlx-lm|qwen|huggingface|uvicorn|fastapi|openai|openclaw" "$HOME/.zsh_history" 2>/dev/null | tail -300 || true
+    echo
+    echo "# bash history hints"
+    grep -Ei "mlx|mlx-lm|qwen|huggingface|uvicorn|fastapi|openai|openclaw" "$HOME/.bash_history" 2>/dev/null | tail -300 || true
+  }
+
+# zsh history hints
+# Update mlxserver to easily switch models\
+# MLX server with easy model switching\
+mlxserver() {\
+  source ~/mlx-env/bin/activate\
+  python -m mlx_lm.server --model "${1:-Qwen2.5-7B-4bit}" --port 8080 --host 0.0.0.0\
+# MLX server with easy model switching\
+mlxserver() {\
+  source ~/mlx-env/bin/activate\
+  python -m mlx_lm.server --model "${1:-Qwen2.5-7B-4bit}" --port 8080 --host 0.0.0.0\
+mlxserver Qwen2.5-Coder-32B-4bit
+mlx_lm.convert --hf-path mlx-community/Qwen2.5-Coder-32B-Instruct-4bit --mlx-path Qwen2.5-Coder-32B-4bit -q
+source ~/mlx-env/bin/activate\
+mlx_lm.convert --hf-path mlx-community/Qwen2.5-Coder-32B-Instruct-4bit --mlx-path Qwen2.5-Coder-32B-4bit -q
+source ~/mlx-env/bin/activate\
+mlx_lm.generate --model Qwen2.5-Coder-32B-4bit --prompt "Write a fast memoized Fibonacci function in Python with type hints" --max-tokens 120
+# Update mlxserver to easily switch models\
+# MLX server with easy model switching\
+mlxserver() {\
+  source ~/mlx-env/bin/activate\
+  python -m mlx_lm.server --model "${1:-Qwen2.5-7B-4bit}" --port 8080 --host 0.0.0.0\
+mlx_lm.server --model Qwen2.5-7B-4bit --port 8080 --host 0.0.0.0
+  - title: Qwen2.5-7B Local\
+    model: mlx-community/Qwen2.5-7B-Instruct-4bit\
+    provider: openai\
+source ~/mlx-env/bin/activate\
+aider --model openai/Qwen2.5-7B-Local --openai-api-base http://localhost:8080/v1 --no-auto-commits --no-browser
+export OPENAI_API_KEY=dummy
+aider --model openai/Qwen2.5-7B-Local --openai-api-base http://localhost:8080/v1 --no-auto-commits --no-browser
+  --openai-api-key dummy \\
+  --openai-api-base http://localhost:8080/v1 \\
+  --model openai/mlx-community/Qwen2.5-7B-Instruct-4bit \\
+mlxserver Qwen2.5-Coder-32B-4bit
+mlxserver Qwen2.5-Coder-32B-4bit
+python -c "import mlx; print('MLX ready')"
+python3.12 -m venv mlx-env\
+source mlx-env/bin/activate\
+pip install mlx mlx-lm huggingface_hub hf_transfer
+python -c "import mlx; print('MLX ready')"
+mlx_lm.convert --hf-path mlx-community/Qwen2.5-7B-Instruct-4bit --mlx-path Qwen2.5-7B-4bit -q
+mlx_lm.generate --model Qwen2.5-7B-4bit --prompt "Say hello and confirm you're running on Apple Silicon M5 Max" --max-tokens 100
+python -m mlx_lm.server --model Qwen2.5-7B-4bit --port 8080 --host 0.0.0.0
+# Start MLX server with any model in ~/Models\
+mlxserver() {\
+  source ~/mlx-env/bin/activate\
+  python -m mlx_lm.server --model "${1:-Qwen2.5-7B-4bit}" --port 8080 --host 0.0.0.0\
+mlxserver
+source ~/mlx-env/bin/activate\
+pip install "huggingface-hub>=1.5.0,<2.0" --upgrade\
+mlxserver
+mlxserver Qwen2.5-Coder-32B-4bit
+mlxserver Qwen2.5-Coder-32B-4bit
+source ~/.mlx-venv/bin/activate\
+mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --quantization 4bit --host 0.0.0.0
+source ~/.mlx-venv/bin/activate\
+mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --quantization 4bit --host 0.0.0.0
+source ~/.mlx-venv/bin/activate\
+mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --quantization 4bit --host 0.0.0.0
+mlxserver Qwen2.5-Coder-32B-4bit
+source ~/.mlx-venv/bin/activate\
+mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --quantization 4bit --host 0.0.0.0
+source ~/.mlx-venv/bin/activate
+mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --quantize 4bit --host 0.0.0.0
+source ~/.mlx-venv/bin/activate\
+mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --host 0.0.0.0
+source ~/.mlx-venv/bin/activate\
+mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --host 0.0.0.0 --quantization 4bit
+source ~/.mlx-venv/bin/activate\
+mlx_lm.server \\
+  --model mlx-community/Qwen2.5-32B-Instruct-4bit \\
+source ~/.mlx-venv/bin/activate\
+mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --host 0.0.0.0
+curl -fsSL https://openclaw.ai/install.sh | bash
+mkdir -p ~/Projects/OpenClaw/workspace/skills ~/Projects/OpenClaw/lab-plan\
+cat > ~/Projects/OpenClaw/lab-plan/01-implementation-plan.md << 'EOF'\
+# OpenClaw M5 Max Lab Plan - MLX Primary + OpenAI Fallback\
+- ~/Projects/OpenClaw/workspace/     âƒ¦ƒ° Main agent workspace\
+- ~/Projects/OpenClaw/lab-plan/     âƒ¦ƒ° This guide + logs\
+openclaw config set agents.defaults.workspace "~/Projects/OpenClaw/workspace"\
+Use the MLX + OpenAI config above in ~/.openclaw/openclaw.json\
+Start MLX server:\
+mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --quantization 4bit\
+openclaw import ~/Projects/OpenClaw\
+openclaw gateway restart\
+Usage: Tell OpenClaw "Read 01-implementation-plan.md as living guide. Update with progress."\
+ls -al ~/Projects/OpenClaw
+mkdir -p ~/Projects/OpenClaw/workspace/skills\
+openclaw config set agents.defaults.workspace "~/Projects/OpenClaw/workspace"
+kdir -p ~/Projects/OpenClaw/workspace/skills
+mkdir -p ~/Projects/OpenClaw/workspace/skills
+openclaw config set agents.defaults.workspace "~/Projects/OpenClaw/workspace"
+pip install mlx-lm
+uv pip install mlx-lm
+uv venv ~/.mlx-venv
+source ~/.mlx-venv/bin/activate\
+uv pip install mlx-lm
+    "model": "mlx-community/Qwen2.5-Coder-32B-Instruct-4bit",\
+  --openai-api-key dummy \\
+  --openai-api-base http://localhost:8080/v1 \\
+  --model openai/mlx-community/Qwen2.5-Coder-32B-Instruct-4bit \\
+source ~/mlx-env/bin/activate\
+  --openai-api-key dummy \\
+  --openai-api-base http://localhost:8080/v1 \\
+  --model openai/mlx-community/Qwen2.5-Coder-32B-Instruct-4bit \\
+cat > ~/Projects/OpenClaw/lab-plan/01-implementation-plan.md << 'EOF'\
+# OpenClaw M5 Max Lab Plan\
+- Workspace locked to ~/Projects/OpenClaw/workspace\
+- MLX venv + mlx-lm installed successfully\
+- Default still openai-codex/gpt-5.4\
+Goal: Make MLX the primary (fast, local, zero extra cost). Use gpt-5.4 only for hard tasks.\
+## MLX Server Command (run in its own terminal tab, leave running):\
+source ~/.mlx-venv/bin/activate\
+mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --quantization 4bit\
+## Routing config (add to ~/.openclaw/openclaw.json):\
+      "workspace": "~/Projects/OpenClaw/workspace",\
+          "provider": "mlx",\
+          "model": "mlx-community/Qwen2.5-32B-Instruct-4bit",\
+          "provider": "openai-codex",\
+  "skills_dir": "~/Projects/OpenClaw/skills"\
+openclaw import ~/Projects/OpenClaw\
+openclaw gateway restart\
+openclaw security audit --fix\
+penclaw import ~/Projects/OpenClaw
+openclaw import ~/Projects/OpenClaw
+openclaw import ~/Projects/OpenClaw
+openclaw gateway restart
+openclaw skills list
+mkdir -p ~/Projects/OpenClaw/workspace/skills/lab-experiment-helper\
+cat > ~/Projects/OpenClaw/workspace/skills/lab-experiment-helper/SKILL.md << 'EOF'\
+description: Core assistant for the M5 Max OpenClaw lab. Handles documentation, progress tracking, skill creation, MLX monitoring, and agentic experiments. Always stays inside ~/Projects/OpenClaw.\
+- All work lives under ~/Projects/OpenClaw/\
+- The single source of truth is ~/Projects/OpenClaw/lab-plan/01-implementation-plan.md\
+- Document every meaningful step in ~/Projects/OpenClaw/lab-plan/02-progress-log.md (create if missing, append with timestamp)\
+- Default to local MLX (fast, private, zero cost). Escalate to gpt-5.4 only for complex reasoning/coding\
+openclaw gateway restart
+openclaw gateway restart
+openclaw skills list
+cat > ~/.openclaw/openclaw.json << 'EOF'\
+      "workspace": "~/Projects/OpenClaw/workspace",\
+          "provider": "mlx",\
+          "model": "mlx-community/Qwen2.5-32B-Instruct-4bit",\
+          "provider": "openai-codex",\
+  "skills_dir": "~/Projects/OpenClaw/skills"\
+openclaw gateway restart
+openclaw status
+cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.bak 2>/dev/null || true\
+cat > ~/.openclaw/openclaw.json << 'EOF'\
+      "workspace": "~/Projects/OpenClaw/workspace",\
+          "provider": "mlx",\
+          "model": "mlx-community/Qwen2.5-32B-Instruct-4bit",\
+          "provider": "openai-codex",\
+openclaw doctor --fix
+openclaw gateway restart
+openclaw status
+cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.bak 2>/dev/null || true\
+cat > ~/.openclaw/openclaw.json << 'EOF'\
+      "workspace": "~/Projects/OpenClaw/workspace",\
+      "model": "mlx-community/Qwen2.5-32B-Instruct-4bit"\
+cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.bak 2>/dev/null || true
+cat > ~/.openclaw/openclaw.json << 'EOF'\
+      "workspace": "~/Projects/OpenClaw/workspace",\
+      "model": "mlx-community/Qwen2.5-32B-Instruct-4bit"\
+openclaw doctor --fix
+openclaw config set gateway.mode local
+openclaw gateway restart
+openclaw config set agents.defaults.model.primary "mlx:mlx-community/Qwen2.5-32B-Instruct-4bit"
+openclaw config set agents.defaults.model.fallbacks '["openai-codex/gpt-5.4"]'
+openclaw gateway restart
+openclaw status
+openclaw config set agents.defaults.model.primary "mlx:mlx-community/Qwen2.5-32B-Instruct-4bit"
+openclaw gateway restart'
+openclaw gateway restart
+openclaw status
+openclaw models set mlx:mlx-community/Qwen2.5-32B-Instruct-4bit
+openclaw models fallbacks add openai-codex/gpt-5.4
+openclaw gateway restart
+openclaw status
+openclaw models set mlx:mlx-community/Qwen2.5-32B-Instruct-4bit
+openclaw gateway restart
+openclaw status
+openclaw models set mlx:mlx-community/Qwen2.5-32B-Instruct-4bit
+openclaw gateway restart
+openclaw status
+openclaw config set agents.defaults.model "mlx:mlx-community/Qwen2.5-32B-Instruct-4bit"
+openclaw gateway restart
+openclaw config set models.providers.mlx.baseUrl "http://localhost:8080/v1"\
+openclaw config set models.providers.mlx.apiKey "mlx"   # dummy key, MLX server ignores it\
+openclaw config set models.providers.mlx.api "openai-completions"
+openclaw config set models.providers.mlx.models[0].id "mlx-community/Qwen2.5-32B-Instruct-4bit"\
+openclaw config set models.providers.mlx.models[0].name "Qwen2.5-32B-4bit (MLX)"
+openclaw config set models.providers.mlx.models[0].id "mlx-community/Qwen2.5-32B-Instruct-4bit"
+cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.bak 2>/dev/null || true
+cat > ~/.openclaw/openclaw.json << 'EOF'\
+      "mlx": {\
+        "apiKey": "mlx-local",\
+        "api": "openai-completions",\
+            "id": "mlx-community/Qwen2.5-32B-Instruct-4bit",\
+            "name": "Qwen2.5-32B-4bit (MLX)",\
+      "workspace": "~/Projects/OpenClaw/workspace",\
+        "primary": "mlx:mlx-community/Qwen2.5-32B-Instruct-4bit"\
+openclaw gateway restart
+cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.bak 2>/dev/null || true
+cat > ~/.openclaw/openclaw.json << 'EOF'\
+      "workspace": "~/Projects/OpenClaw/workspace",\
+      "model": "mlx-community/Qwen2.5-32B-Instruct-4bit"\
+openclaw gateway restart\
+openclaw status
+cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.bak 2>/dev/null || true
+cat > ~/.openclaw/openclaw.json << 'EOF'\
+      "workspace": "~/Projects/OpenClaw/workspace",\
+      "model": "mlx-community/Qwen2.5-32B-Instruct-4bit"\
+openclaw gateway restart\
+openclaw status
+openclaw gateway restart\
+openclaw status
+openclaw status
+mkdir -p ~/Projects/OpenClaw/workspace/skills/use-mlx\
+cat > ~/Projects/OpenClaw/workspace/skills/use-mlx/SKILL.md << 'EOF'\
+name: use-mlx\
+description: Switch the current session to local MLX for faster inference.\
+Switch to local MLX model (Qwen2.5-32B-4bit) for this session or future work.\
+openclaw gateway restart
+openclaw gateway restart\
+openclaw status
+# Minimal stable config (gpt-5.4 as primary, no MLX provider mess)\
+cat > ~/.openclaw/openclaw.json << 'EOF'\
+      "workspace": "~/Projects/OpenClaw/workspace",\
+      "model": "openai-codex/gpt-5.4"\
+openclaw gateway restart\
+openclaw status
+cat > ~/Projects/OpenClaw/workspace/skills/lab-experiment-helper/SKILL.md << 'EOF'\
+description: Core assistant for Kermit's M5 Max OpenClaw lab. Focused on agentic experiments and earning work.\
+- All work stays under ~/Projects/OpenClaw/\
+- The living guide is ~/Projects/OpenClaw/lab-plan/01-implementation-plan.md\
+- Document every meaningful step in ~/Projects/OpenClaw/lab-plan/02-progress-log.md (create if missing)\
+- MLX server can be started manually when speed is needed\
+openclaw gateway restart
+openclaw config set agents.defaults.model "mlx-community/Qwen2.5-32B-Instruct-4bit"
+openclaw gateway restart
+openclaw status
+# Force the exact model string OpenClaw is complaining about\
+openclaw config set agents.defaults.model "mlx-community/Qwen2.5-32B-Instruct-4bit"\
+openclaw gateway restart
+cat > ~/.openclaw/openclaw.json << 'EOF'\
+      "workspace": "~/Projects/OpenClaw/workspace",\
+      "model": "openai-codex/gpt-5.4"\
+openclaw gateway restart\
+openclaw status
+cd ~/.openclaw
+cd ~/.openclaw\
+ls -t openclaw.json.clobbered.* 2>/dev/null | tail -n +4 | xargs rm -f
+rm -f ~/.openclaw/logs/*.log.old 2>/dev/null || true
+source ~/.mlx-venv/bin/activate\
+mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --host 0.0.0.0
+cat openclaw.json
+cat openclaw.json.clobbered.2026-03-27T21-59-30-853Z
+cat openclaw.json.clobbered.2026-03-27T05-54-18-745Z
+cat openclaw.json
+tree .openclaw
+ls -al .openclaw
+ls -al .openclaw
+code ~/Projects/OpenClaw/
+ /usr/bin/env /opt/homebrew/bin/python3.12 /Users/kermitv/.vscode/extensions/ms-python.debugpy-2025.18.0-darwin-arm64/bundled/libs/debugpy/adapter/../../debugpy/launcher 50017 -- /Users/kermitv/Projects/OpenClaw/agent.py 
+ cd /Users/kermitv/Projects/OpenClaw ; /usr/bin/env /opt/homebrew/bin/python3.12 /Users/kermitv/.vscode/extensions/ms-python.debugpy-2025.18.0-darwin-arm64/bundled/libs/debugpy/adapter/../../debugpy/launcher 50036 -- /Users/kermitv/Projects/OpenClaw/agent.py 
+ cd /Users/kermitv/Projects/OpenClaw ; /usr/bin/env /Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/.vscode/extensions/ms-python.debugpy-2025.18.0-darwin-arm64/bundled/libs/debugpy/adapter/../../debugpy/launcher 50098 -- /Users/kermitv/Projects/OpenClaw/agent.py 
+ cd /Users/kermitv/Projects/OpenClaw ; /usr/bin/env /Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/.vscode/extensions/ms-python.debugpy-2025.18.0-darwin-arm64/bundled/libs/debugpy/adapter/../../debugpy/launcher 50173 -- /Users/kermitv/Projects/OpenClaw/agent.py 
+ cd /Users/kermitv/Projects/OpenClaw ; /usr/bin/env /Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/.vscode/extensions/ms-python.debugpy-2025.18.0-darwin-arm64/bundled/libs/debugpy/adapter/../../debugpy/launcher 50199 -- /Users/kermitv/Projects/OpenClaw/agent.py 
+ cd /Users/kermitv/Projects/OpenClaw ; /usr/bin/env /Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/.vscode/extensions/ms-python.debugpy-2025.18.0-darwin-arm64/bundled/libs/debugpy/adapter/../../debugpy/launcher 50228 -- /Users/kermitv/Projects/OpenClaw/agent.py 
+ source /Users/kermitv/Projects/OpenClaw/venv/bin/activate
+/Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/Projects/OpenClaw/agent.py
+/Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/Projects/OpenClaw/agent.py
+/Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/Projects/OpenClaw/agent.py
+/Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/Projects/OpenClaw/agent.py
+/Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/Projects/OpenClaw/agent.py
+/Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/Projects/OpenClaw/agent.py
+/Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/Projects/OpenClaw/agent.py
+/Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/Projects/OpenClaw/agent.py
+/opt/homebrew/bin/python3.12 /Users/kermitv/Projects/OpenClaw/agent.py
+python3 -m pip install openai
+pip install openai
+ source /Users/kermitv/Projects/OpenClaw/venv/bin/activate
+/Users/kermitv/Projects/OpenClaw/venv/bin/python /Users/kermitv/Projects/OpenClaw/agent.py
+
+# bash history hints

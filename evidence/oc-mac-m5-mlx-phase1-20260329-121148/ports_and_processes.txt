@@ -1,0 +1,59 @@
+$ sh -c 
+  {
+    echo "# listeners"
+    lsof -nP -iTCP -sTCP:LISTEN 2>/dev/null
+    echo
+    echo "# python/node/mlx/openclaw-ish processes"
+    ps aux | egrep -i "mlx|mlx-lm|python|uvicorn|fastapi|openclaw|qwen|server" | egrep -v "egrep"
+  }
+
+# listeners
+COMMAND    PID    USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+rapportd   633 kermitv   14u  IPv4 0x35feaaafad0125a1      0t0  TCP *:53106 (LISTEN)
+rapportd   633 kermitv   19u  IPv6 0x4505638de674cc51      0t0  TCP *:53106 (LISTEN)
+ControlCe  680 kermitv    9u  IPv4 0xb8330fc2ee87fa4b      0t0  TCP *:7000 (LISTEN)
+ControlCe  680 kermitv   10u  IPv6 0x4d843c757e519ab2      0t0  TCP *:7000 (LISTEN)
+ControlCe  680 kermitv   11u  IPv4 0xfe921a8f82aaf26d      0t0  TCP *:5000 (LISTEN)
+ControlCe  680 kermitv   12u  IPv6 0x95f7a5ac04943d24      0t0  TCP *:5000 (LISTEN)
+node      1305 kermitv   15u  IPv4 0xfcf4ec50c4cd3562      0t0  TCP 127.0.0.1:18789 (LISTEN)
+node      1305 kermitv   16u  IPv6 0x1ed5b6a4ca4ebebc      0t0  TCP [::1]:18789 (LISTEN)
+node      1305 kermitv   17u  IPv4 0xa0f08c8faf5356db      0t0  TCP 127.0.0.1:18791 (LISTEN)
+Python    2956 kermitv    9u  IPv4 0xcae533afff60aad2      0t0  TCP *:8080 (LISTEN)
+
+# python/node/mlx/openclaw-ish processes
+kermitv            678   6.2  0.9 450842400 1266224   ??  S    Fri04PM  29:20.82 /Applications/OpenClaw.app/Contents/MacOS/OpenClaw
+_windowserver      396   0.8  0.3 4042407024 394256   ??  Ss   Fri04PM 180:37.72 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer -daemon
+kermitv           1305   0.8  0.4 452495312 592656   ??  S    Fri04PM   2:26.76 openclaw-gateway    
+kermitv          22038   0.4  0.1 442970240 142096   ??  S    Sat01AM   0:44.70 /Applications/Codex.app/Contents/Resources/codex app-server --analytics-default-enabled
+kermitv          28432   0.0  0.1 1914357664  78480   ??  S     9:22AM   0:00.61 /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) /Applications/Visual Studio Code.app/Contents/Resources/app/extensions/json-language-features/server/dist/node/jsonServerMain --node-ipc --clientProcessId=28248
+kermitv          21932   0.0  0.1 1897573024  78080   ??  S    Sat01AM   0:01.43 /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) /Applications/Visual Studio Code.app/Contents/Resources/app/extensions/markdown-language-features/dist/serverWorkerMain --node-ipc --clientProcessId=21916
+kermitv           8345   0.0  0.0 442012608   8080   ??  Ss   Fri08PM   0:00.02 /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/XPCServices/SpeechSynthesisServerXPC.xpc/Contents/MacOS/SpeechSynthesisServerXPC
+kermitv           8319   0.0  0.0 441820176   4288   ??  Ss   Fri08PM   0:00.01 /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/XPCServices/SpeechSynthesisServerXPC.xpc/Contents/MacOS/SpeechSynthesisServerXPC
+kermitv           7383   0.0  0.0 441820160   4256   ??  Ss   Fri07PM   0:00.01 /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/XPCServices/SpeechSynthesisServerXPC.xpc/Contents/MacOS/SpeechSynthesisServerXPC
+kermitv           7304   0.0  0.2 443202640 253040 s001  S+   Fri06PM   0:24.93 /opt/homebrew/Cellar/python@3.12/3.12.13/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/kermitv/mlx-env/bin/aider --openai-api-key dummy --openai-api-base http://localhost:8080/v1 --model openai/mlx-community/Qwen2.5-Coder-32B-Instruct-4bit --no-auto-commits --no-browser
+kermitv           7018   0.0  0.3 452331712 451520 s007  S+   Fri06PM   0:39.20 openclaw-tui   
+kermitv           7017   0.0  0.1 443560416 122352 s007  S+   Fri06PM   0:00.41 openclaw  
+kermitv           6178   0.0  0.0 441819984   4272   ??  Ss   Fri05PM   0:00.01 /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/XPCServices/SpeechSynthesisServerXPC.xpc/Contents/MacOS/SpeechSynthesisServerXPC
+kermitv           2957   0.0  0.0 442173984  16368 s000  S+   Fri05PM   0:00.03 /opt/homebrew/Cellar/python@3.12/3.12.13/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -c from multiprocessing.resource_tracker import main;main(9)
+kermitv           2956   0.0 13.7 521967280 18355632 s000  S+   Fri05PM   1:31.77 /opt/homebrew/Cellar/python@3.12/3.12.13/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python /Users/kermitv/.mlx-venv/bin/mlx_lm.server --model mlx-community/Qwen2.5-32B-Instruct-4bit --port 8080 --host 0.0.0.0
+root              1363   0.0  0.0 441970384   4576   ??  Ss   Fri04PM   0:00.02 /System/Library/CoreServices/CrashReporterSupportHelper server-init
+root              1026   0.0  0.0 442051328  43104   ??  Ss   Fri04PM   0:01.08 /System/Library/CoreServices/SubmitDiagInfo server-init
+root              1198   0.0  0.0 441896784  29088   ??  Ss   Fri04PM   0:04.07 /usr/sbin/BTLEServer
+kermitv           1150   0.0  0.0 441840976   9424   ??  S    Fri04PM   0:00.69 /usr/sbin/BTLEServerAgent
+kermitv           1103   0.0  0.0 442014784  17712   ??  Ss   Fri04PM   0:00.33 /System/Library/PrivateFrameworks/TrialServer.framework/Versions/A/XPCServices/TrialArchivingService.xpc/Contents/MacOS/TrialArchivingService
+root               743   0.0  0.0 441983872   6032   ??  Ss   Fri04PM   0:00.03 /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/CVMServer
+_applepay          708   0.0  0.0 441940576   6688   ??  Ss   Fri04PM   0:00.02 /System/Library/PrivateFrameworks/NearFieldPrivateServices.framework/Versions/A/XPCServices/NFStorageServer.xpc/Contents/MacOS/NFStorageServer
+kermitv            610   0.0  0.0 442014704  17056   ??  S    Fri04PM   0:25.30 /usr/libexec/ContinuityCaptureAgent server
+root               693   0.0  0.0 442052064  17424   ??  Ss   Fri04PM   0:00.99 /usr/sbin/systemsoundserverd
+kermitv            687   0.0  0.0 442239920  65680   ??  S    Fri04PM   0:00.65 /System/Library/CoreServices/AccessibilityUIServer.app/Contents/MacOS/AccessibilityUIServer
+kermitv            681   0.0  0.0 442147888  46320   ??  S    Fri04PM   0:00.41 /System/Library/CoreServices/SystemUIServer.app/Contents/MacOS/SystemUIServer
+kermitv            654   0.0  0.0 442110752  52544   ??  S    Fri04PM   0:27.46 /System/Library/PrivateFrameworks/DoNotDisturbServer.framework/Support/donotdisturbd
+_appleevents       563   0.0  0.0 442011152  10944   ??  Ss   Fri04PM   0:00.17 /System/Library/CoreServices/appleeventsd --server
+root               553   0.0  0.0 442011424  18464   ??  Ss   Fri04PM   0:00.21 /System/Library/CoreServices/osanalyticshelper server-init
+_windowserver      466   0.0  0.0 441975408   6112   ??  S    Fri04PM   0:01.75 /usr/sbin/distnoted agent
+root               439   0.0  0.0 441939984  10208   ??  Ss   Fri04PM   0:03.58 /System/Library/PrivateFrameworks/SystemStatusServer.framework/Support/systemstatusd
+kermitv          31093   0.0  0.0 441880160   1264 s016  S+   12:11PM   0:00.00 tee /Users/kermitv/oc-mac-m5-mlx-phase1-20260329-121148/_session.log
+kermitv          30661   0.0  0.0 441967504   4416   ??  Ss   11:18AM   0:00.01 /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/XPCServices/SpeechSynthesisServerXPC.xpc/Contents/MacOS/SpeechSynthesisServerXPC
+kermitv          30604   0.0  0.1 1897582416  81008   ??  S    11:11AM   0:00.29 /Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin) /Applications/Visual Studio Code.app/Contents/Resources/app/extensions/markdown-language-features/dist/serverWorkerMain --node-ipc --clientProcessId=28248
+kermitv          30556   0.0  0.0 442012752   8080   ??  Ss   11:05AM   0:00.01 /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/XPCServices/SpeechSynthesisServerXPC.xpc/Contents/MacOS/SpeechSynthesisServerXPC
+kermitv          30538   0.0  0.0 442012640   8224   ??  Ss   11:03AM   0:00.01 /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/XPCServices/SpeechSynthesisServerXPC.xpc/Contents/MacOS/SpeechSynthesisServerXPC

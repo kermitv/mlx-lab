@@ -1,0 +1,23 @@
+$ sh -c 
+  uname -a
+  echo
+  sw_vers || true
+  echo
+  sysctl -n machdep.cpu.brand_string 2>/dev/null || true
+  echo
+  sysctl -n hw.memsize 2>/dev/null || true
+  echo
+  df -h /
+
+Darwin Kermits-MacBook-Pro-M5.local 25.4.0 Darwin Kernel Version 25.4.0: Thu Mar 19 19:33:50 PDT 2026; root:xnu-12377.101.15~1/RELEASE_ARM64_T6050 arm64
+
+ProductName:		macOS
+ProductVersion:		26.4
+BuildVersion:		25E246
+
+Apple M5 Max
+
+137438953472
+
+Filesystem        Size    Used   Avail Capacity iused ifree %iused  Mounted on
+/dev/disk3s1s1   3.6Ti    12Gi   3.5Ti     1%    458k  4.3G    0%   /

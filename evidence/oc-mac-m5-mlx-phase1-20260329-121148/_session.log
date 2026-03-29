@@ -1,0 +1,94 @@
+
+
+========== HOST BASICS ==========
+Darwin Kermits-MacBook-Pro-M5.local 25.4.0 Darwin Kernel Version 25.4.0: Thu Mar 19 19:33:50 PDT 2026; root:xnu-12377.101.15~1/RELEASE_ARM64_T6050 arm64
+ProductName:		macOS
+ProductVersion:		26.4
+BuildVersion:		25E246
+Apple M5 Max
+137438953472
+Filesystem        Size    Used   Avail Capacity iused ifree %iused  Mounted on
+/dev/disk3s1s1   3.6Ti    12Gi   3.5Ti     1%    458k  4.3G    0%   /
+
+
+========== PYTHON / ENV DISCOVERY ==========
+PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/pkg/env/active/bin:/opt/pmk/env/global/bin
+
+/usr/bin/python3
+/usr/bin/pip3
+/opt/homebrew/bin/uv
+
+Python 3.9.6
+
+pip 21.2.4 from /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages/pip (python 3.9)
+
+
+========== MLX / MODEL / OPENCLAW FILE DISCOVERY ==========
+
+
+========== PACKAGE INVENTORY FOR SYSTEM PYTHON ==========
+
+
+========== INSPECT SERIOUS ENV CANDIDATES ==========
+
+
+========== MODEL / CACHE PATHS ==========
+
+
+========== OPENCLAW CONFIG CLUES ==========
+
+
+========== PROCESSES / PORTS ==========
+
+
+========== LAUNCHAGENTS / SUPERVISION CLUES ==========
+
+
+========== HTTP PROBE COMMON LOCAL PORTS ==========
+
+
+========== SHELL HISTORY HINTS ==========
+
+
+========== OPTIONAL APPLE SILICON GPU / POWER SNAPSHOT ==========
+
+
+========== SUMMARY INDEX ==========
+Output directory: /Users/kermitv/oc-mac-m5-mlx-phase1-20260329-121148
+
+_session.log
+big_dirs_home.txt
+env_candidates.txt
+env_probe_paths.txt
+envprobe_~_.mlx-venv_bin_python.txt
+envprobe_~_mlx-env_bin_python.txt
+envprobe_~_Projects_OpenClaw_venv_bin_python.txt
+host_basics.txt
+http_probe.txt
+INDEX.txt
+launchagents.txt
+mlx_file_hints.txt
+model_cache_paths.txt
+openclaw_cli_presence.txt
+openclaw_config_redacted.txt
+ports_and_processes.txt
+python-paths.txt
+shell_history_hints.txt
+silicon_snapshot.txt
+system_python_pkgs.txt
+
+Done.
+Primary artifact directory: /Users/kermitv/oc-mac-m5-mlx-phase1-20260329-121148
+Please send back:
+1) the path to the output directory
+2) the contents of INDEX.txt
+3) the most relevant files, especially:
+   - python-paths.txt
+   - env_candidates.txt
+   - envprobe_*.txt for the serious envs
+   - model_cache_paths.txt
+   - big_dirs_home.txt
+   - ports_and_processes.txt
+   - http_probe.txt
+   - shell_history_hints.txt
+   - openclaw_config_redacted.txt

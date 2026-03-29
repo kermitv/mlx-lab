@@ -1,0 +1,66 @@
+$ sh -c 
+  which -a openclaw 2>/dev/null || true
+  echo
+  openclaw --version 2>/dev/null || true
+  echo
+  openclaw status 2>/dev/null || true
+
+/opt/homebrew/bin/openclaw
+
+OpenClaw 2026.3.24 (cff6dc9)
+
+OpenClaw status
+
+Overview
+┌──────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Item                 │ Value                                                                                         │
+├──────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Dashboard            │ http://127.0.0.1:18789/                                                                       │
+│ OS                   │ macos 26.4 (arm64) · node 25.8.2                                                              │
+│ Tailscale            │ off                                                                                           │
+│ Channel              │ stable (default)                                                                              │
+│ Update               │ available · pnpm · npm update 2026.3.28                                                       │
+│ Gateway              │ local · ws://127.0.0.1:18789 (local loopback) · reachable 21ms · auth token · Kermits-        │
+│                      │ MacBook-Pro-M5.local (192.168.1.16) app 2026.3.24 macos 26.4                                  │
+│ Gateway service      │ LaunchAgent installed · loaded · running (pid 1305, state active)                             │
+│ Node service         │ LaunchAgent not installed                                                                     │
+│ Agents               │ 1 · 1 bootstrap file present · sessions 1 · default main active 17m ago                       │
+│ Memory               │ 0 files · 0 chunks · dirty · sources memory · plugin memory-core · vector unknown · fts       │
+│                      │ ready · cache on (0)                                                                          │
+│ Plugin compatibility │ none                                                                                          │
+│ Probes               │ skipped (use --deep)                                                                          │
+│ Events               │ none                                                                                          │
+│ Heartbeat            │ 30m (main)                                                                                    │
+│ Sessions             │ 1 active · default gpt-5.4 (200k ctx) · ~/.openclaw/agents/main/sessions/sessions.json        │
+└──────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Security audit
+Summary: 0 critical · 1 warn · 1 info
+  WARN Reverse proxy headers are not trusted
+    gateway.bind is loopback and gateway.trustedProxies is empty. If you expose the Control UI through a reverse proxy, configure trusted proxies so local-client c…
+    Fix: Set gateway.trustedProxies to your proxy IPs or keep the Control UI local-only.
+Full report: openclaw security audit
+Deep probe: openclaw security audit --deep
+
+Channels
+┌──────────┬─────────┬────────┬────────────────────────────────────────────────────────────────────────────────────────┐
+│ Channel  │ Enabled │ State  │ Detail                                                                                 │
+├──────────┼─────────┼────────┼────────────────────────────────────────────────────────────────────────────────────────┤
+└──────────┴─────────┴────────┴────────────────────────────────────────────────────────────────────────────────────────┘
+
+Sessions
+┌────────────────────────────────────────────────────┬────────┬─────────┬──────────────┬───────────────────────────────┐
+│ Key                                                │ Kind   │ Age     │ Model        │ Tokens                        │
+├────────────────────────────────────────────────────┼────────┼─────────┼──────────────┼───────────────────────────────┤
+│ agent:main:main                                    │ direct │ 17m ago │ gpt-5.4      │ 11k/272k (4%) · 🗄️ 98% cached │
+└────────────────────────────────────────────────────┴────────┴─────────┴──────────────┴───────────────────────────────┘
+
+FAQ: https://docs.openclaw.ai/faq
+Troubleshooting: https://docs.openclaw.ai/troubleshooting
+
+Update available (npm 2026.3.28). Run: openclaw update
+
+Next steps:
+  Need to share?      openclaw status --all
+  Need to debug live? openclaw logs --follow
+  Need to test channels? openclaw status --deep

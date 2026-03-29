@@ -1,0 +1,38 @@
+PYBIN=/Users/kermitv/mlx-env/bin/python
+Python 3.12.13
+
+pip 26.0.1 from /Users/kermitv/mlx-env/lib/python3.12/site-packages/pip (python 3.12)
+
+fastapi                       0.128.8
+huggingface_hub               1.8.0
+mlx                           0.31.1
+mlx-lm                        0.31.1
+mlx-metal                     0.31.1
+openai                        2.20.0
+safetensors                   0.7.0
+sentencepiece                 0.2.1
+tokenizers                    0.22.2
+transformers                  5.4.0
+uvicorn                       0.42.0
+
+Name: mlx
+Version: 0.31.1
+Summary: A framework for machine learning on Apple silicon.
+Home-page: https://github.com/ml-explore/mlx
+Author: MLX Contributors
+Author-email: mlx@group.apple.com
+License: MIT
+Location: /Users/kermitv/mlx-env/lib/python3.12/site-packages
+Requires: mlx-metal
+Required-by: mlx-lm
+---
+Name: mlx-lm
+Version: 0.31.1
+Summary: LLMs with MLX and the Hugging Face Hub
+Home-page: https://github.com/ml-explore/mlx-lm
+Author: MLX Contributors
+Author-email: mlx@group.apple.com
+License: MIT
+Location: /Users/kermitv/mlx-env/lib/python3.12/site-packages
+Requires: jinja2, mlx, numpy, protobuf, pyyaml, sentencepiece, transformers
+Required-by: 

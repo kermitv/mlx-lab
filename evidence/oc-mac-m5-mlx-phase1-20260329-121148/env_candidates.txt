@@ -1,0 +1,32 @@
+$ sh -c 
+  {
+    echo "# likely virtual envs"
+    find "$HOME" \
+      \( -path "$HOME/.Trash" -o -path "$HOME/Library" -o -path "$HOME/.cache" -o -path "$HOME/.npm" -o -path "$HOME/node_modules" \) -prune -o \
+      \( -name "pyvenv.cfg" -o -path "*/bin/activate" -o -path "*/.venv" -o -path "*/venv" \) -print 2>/dev/null | sed "s#^$HOME#~#"
+    echo
+    echo "# conda envs"
+    conda env list 2>/dev/null || true
+    echo
+    echo "# uv hints"
+    find "$HOME" \( -name "uv.lock" -o -name "pyproject.toml" \) 2>/dev/null | sed "s#^$HOME#~#" | head -500
+  }
+
+# likely virtual envs
+~/.mlx-venv/bin/activate
+~/.mlx-venv/pyvenv.cfg
+~/Projects/OpenClaw/venv
+~/Projects/OpenClaw/venv/bin/activate
+~/Projects/OpenClaw/venv/pyvenv.cfg
+~/mlx-env/bin/activate
+~/mlx-env/pyvenv.cfg
+~/.vscode/extensions/ms-python.python-2026.4.0-darwin-arm64/python_files/lib/jedilsp/jedi/third_party/typeshed/stdlib/3/venv
+~/.vscode/extensions/ms-python.vscode-pylance-2026.1.1/dist/typeshed-fallback/stdlib/venv
+
+# conda envs
+
+# uv hints
+~/.codex/.tmp/plugins/plugins/vercel/skills/vercel-services/references/fastapi-vite/backend/pyproject.toml
+~/.vscode/extensions/ms-python.vscode-python-envs-1.24.0-darwin-arm64/analysis/pyproject.toml
+~/.vscode/extensions/ms-python.vscode-python-envs-1.24.0-darwin-arm64/files/templates/newPackageTemplate/pyproject.toml
+~/.vscode/extensions/ms-python.python-2026.4.0-darwin-arm64/python_files/pyproject.toml

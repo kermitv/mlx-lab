@@ -1,0 +1,87 @@
+$ sh -c 
+  {
+    echo "# largest directories under HOME (top 80)"
+    du -x -d 3 "$HOME" 2>/dev/null | sort -hr | head -80 | sed "s#^$HOME#~#"
+  }
+
+# largest directories under HOME (top 80)
+155371696	/Users/kermitv
+81149184	/Users/kermitv/.cache
+80558672	/Users/kermitv/.cache/huggingface
+80433984	/Users/kermitv/.cache/huggingface/hub
+44411944	/Users/kermitv/Models
+36021624	/Users/kermitv/Models/Qwen2.5-Coder-32B-4bit
+14307160	/Users/kermitv/Pictures/Photos Library.photoslibrary
+14307160	/Users/kermitv/Pictures
+10410968	/Users/kermitv/Pictures/Photos Library.photoslibrary/resources
+10381288	/Users/kermitv/Library
+8390320	/Users/kermitv/Models/Qwen2.5-7B-4bit
+3408056	/Users/kermitv/Library/Caches
+2792632	/Users/kermitv/Library/Photos/Libraries
+2792632	/Users/kermitv/Library/Photos
+2577320	/Users/kermitv/Pictures/Photos Library.photoslibrary/database
+2047088	/Users/kermitv/mlx-env
+2046624	/Users/kermitv/mlx-env/lib/python3.12
+2046624	/Users/kermitv/mlx-env/lib
+1687952	/Users/kermitv/Library/Containers
+1334296	/Users/kermitv/Library/Application Support
+1252648	/Users/kermitv/Library/Containers/com.apple.mediaanalysisd
+936408	/Users/kermitv/Library/Application Support/com.apple.wallpaper
+889216	/Users/kermitv/.vscode
+889208	/Users/kermitv/.vscode/extensions
+810776	/Users/kermitv/Library/Caches/Homebrew
+785600	/Users/kermitv/Downloads
+751632	/Users/kermitv/Library/Mobile Documents
+710320	/Users/kermitv/Pictures/Photos Library.photoslibrary/private
+661456	/Users/kermitv/Library/Mobile Documents/iCloud~com~apple~Playgrounds
+615888	/Users/kermitv/Library/Caches/com.apple.textunderstandingd
+615888	/Users/kermitv/Library/Caches/com.apple.callintelligenced
+590504	/Users/kermitv/.cache/uv
+583232	/Users/kermitv/.mlx-venv
+582888	/Users/kermitv/.mlx-venv/lib/python3.12
+582888	/Users/kermitv/.mlx-venv/lib
+561184	/Users/kermitv/.cache/uv/archive-v0
+535264	/Users/kermitv/Library/Caches/SiriTTS
+521992	/Users/kermitv/.npm
+521152	/Users/kermitv/.npm/_cacache
+513840	/Users/kermitv/.npm/_cacache/content-v2
+499776	/Users/kermitv/.vscode/extensions/continue.continue-1.2.22-darwin-arm64
+434808	/Users/kermitv/Pictures/Photos Library.photoslibrary/originals
+410832	/Users/kermitv/Library/Caches/pip
+357472	/Users/kermitv/Library/Application Support/Code
+245352	/Users/kermitv/.vscode/extensions/ms-python.vscode-pylance-2026.1.1
+224488	/Users/kermitv/Library/Group Containers
+183824	/Users/kermitv/Library/Containers/com.apple.photoanalysisd
+168520	/Users/kermitv/Library/Group Containers/6N38VWS5BX.ru.keepcoder.Telegram
+166296	/Users/kermitv/Pictures/Photos Library.photoslibrary/internal
+124688	/Users/kermitv/.cache/huggingface/xet
+112944	/Users/kermitv/Library/Caches/GeoServices
+104656	/Users/kermitv/.codex
+100272	/Users/kermitv/.openclaw
+97952	/Users/kermitv/Library/Containers/com.apple.wallpaper.agent
+85616	/Users/kermitv/Projects
+80968	/Users/kermitv/Projects/OpenClaw
+80656	/Users/kermitv/Projects/OpenClaw/venv
+74440	/Users/kermitv/.vscode/extensions/ms-python.python-2026.4.0-darwin-arm64
+61384	/Users/kermitv/Library/Caches/com.apple.helpd
+60120	/Users/kermitv/Library/Keychains
+59880	/Users/kermitv/Library/Keychains/D6F0CC9C-2BBF-5E15-81B4-652EDBFE60BA
+59416	/Users/kermitv/Library/Caches/com.apple.e5rt.e5bundlecache
+52968	/Users/kermitv/Library/Group Containers/group.com.apple.CoreSpeech
+49744	/Users/kermitv/.vscode/extensions/ms-python.debugpy-2025.18.0-darwin-arm64
+35704	/Users/kermitv/Library/Python/3.9
+35704	/Users/kermitv/Library/Python
+33536	/Users/kermitv/Library/Caches/com.apple.parsecd
+33352	/Users/kermitv/Library/Containers/com.apple.FaceTime
+32320	/Users/kermitv/Library/Caches/com.apple.python
+30768	/Users/kermitv/Library/Mobile Documents/com~apple~CloudDocs
+30568	/Users/kermitv/.codex/.tmp
+30552	/Users/kermitv/.codex/.tmp/plugins
+28720	/Users/kermitv/.cache/uv/simple-v20
+28368	/Users/kermitv/Library/Mobile Documents/com~apple~Pages
+25456	/Users/kermitv/.openclaw/logs
+24840	/Users/kermitv/Library/Containers/com.apple.AppStore
+22912	/Users/kermitv/Library/Passes
+21864	/Users/kermitv/Library/HTTPStorages
+20216	/Users/kermitv/Library/Containers/com.apple.mediastream.mstreamd
+19888	/Users/kermitv/.vscode/extensions/ms-python.vscode-python-envs-1.24.0-darwin-arm64

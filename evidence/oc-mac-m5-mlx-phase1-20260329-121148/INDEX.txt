@@ -1,0 +1,22 @@
+Output directory: /Users/kermitv/oc-mac-m5-mlx-phase1-20260329-121148
+
+_session.log
+big_dirs_home.txt
+env_candidates.txt
+env_probe_paths.txt
+envprobe_~_.mlx-venv_bin_python.txt
+envprobe_~_mlx-env_bin_python.txt
+envprobe_~_Projects_OpenClaw_venv_bin_python.txt
+host_basics.txt
+http_probe.txt
+INDEX.txt
+launchagents.txt
+mlx_file_hints.txt
+model_cache_paths.txt
+openclaw_cli_presence.txt
+openclaw_config_redacted.txt
+ports_and_processes.txt
+python-paths.txt
+shell_history_hints.txt
+silicon_snapshot.txt
+system_python_pkgs.txt

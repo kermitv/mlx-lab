@@ -1,0 +1,3 @@
+/Users/kermitv/.mlx-venv/bin/python
+/Users/kermitv/Projects/OpenClaw/venv/bin/python
+/Users/kermitv/mlx-env/bin/python

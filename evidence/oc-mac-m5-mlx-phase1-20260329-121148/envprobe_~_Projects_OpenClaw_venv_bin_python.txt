@@ -1,0 +1,7 @@
+PYBIN=/Users/kermitv/Projects/OpenClaw/venv/bin/python
+Python 3.12.13
+
+pip 26.0 from /Users/kermitv/Projects/OpenClaw/venv/lib/python3.12/site-packages/pip (python 3.12)
+
+openai            2.30.0
+

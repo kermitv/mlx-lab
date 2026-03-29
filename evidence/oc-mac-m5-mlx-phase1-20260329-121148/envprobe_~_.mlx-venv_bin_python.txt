@@ -1,0 +1,5 @@
+PYBIN=/Users/kermitv/.mlx-venv/bin/python
+Python 3.12.13
+
+
+

@@ -1,0 +1,172 @@
+$ sh -c 
+  {
+    echo "# common cache/model roots"
+    for d in \
+      "$HOME/.cache" \
+      "$HOME/.cache/huggingface" \
+      "$HOME/.cache/huggingface/hub" \
+      "$HOME/.cache/mlx" \
+      "$HOME/.cache/mlx_lm" \
+      "$HOME/.mlx" \
+      "$HOME/models" \
+      "$HOME/Models" \
+      "$HOME/.lmstudio" \
+      "$HOME/.openclaw" \
+      "$HOME/.config/openclaw"
+    do
+      if [ -e "$d" ]; then
+        echo
+        echo "## $d"
+        du -sh "$d" 2>/dev/null || true
+        find "$d" -maxdepth 2 -mindepth 1 -print 2>/dev/null | sed "s#^$HOME#~#" | head -200
+      fi
+    done
+  }
+
+# common cache/model roots
+
+## /Users/kermitv/.cache
+ 39G	/Users/kermitv/.cache
+~/.cache/gh
+~/.cache/gh/1b
+~/.cache/uv
+~/.cache/uv/.lock
+~/.cache/uv/wheels-v6
+~/.cache/uv/interpreter-v4
+~/.cache/uv/CACHEDIR.TAG
+~/.cache/uv/sdists-v9
+~/.cache/uv/.gitignore
+~/.cache/uv/simple-v20
+~/.cache/uv/archive-v0
+~/.cache/huggingface
+~/.cache/huggingface/xet
+~/.cache/huggingface/hub
+
+## /Users/kermitv/.cache/huggingface
+ 38G	/Users/kermitv/.cache/huggingface
+~/.cache/huggingface/xet
+~/.cache/huggingface/xet/logs
+~/.cache/huggingface/xet/https___cas_serv-tGqkUaZf_CBPHQ6h
+~/.cache/huggingface/hub
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-Coder-32B-Instruct-4bit
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-32B-Instruct-4bit
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-7B-Instruct-4bit
+~/.cache/huggingface/hub/.locks
+
+## /Users/kermitv/.cache/huggingface/hub
+ 38G	/Users/kermitv/.cache/huggingface/hub
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-Coder-32B-Instruct-4bit
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-Coder-32B-Instruct-4bit/snapshots
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-Coder-32B-Instruct-4bit/blobs
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-Coder-32B-Instruct-4bit/refs
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-32B-Instruct-4bit
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-32B-Instruct-4bit/snapshots
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-32B-Instruct-4bit/blobs
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-32B-Instruct-4bit/refs
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-7B-Instruct-4bit
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-7B-Instruct-4bit/snapshots
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-7B-Instruct-4bit/blobs
+~/.cache/huggingface/hub/models--mlx-community--Qwen2.5-7B-Instruct-4bit/refs
+~/.cache/huggingface/hub/.locks
+~/.cache/huggingface/hub/.locks/models--mlx-community--Qwen2.5-Coder-32B-Instruct-4bit
+~/.cache/huggingface/hub/.locks/models--mlx-community--Qwen2.5-32B-Instruct-4bit
+~/.cache/huggingface/hub/.locks/models--mlx-community--Qwen2.5-7B-Instruct-4bit
+
+## /Users/kermitv/models
+ 21G	/Users/kermitv/models
+~/models/Qwen2.5-7B-4bit
+~/models/Qwen2.5-7B-4bit/model.safetensors
+~/models/Qwen2.5-7B-4bit/tokenizer_config.json
+~/models/Qwen2.5-7B-4bit/config.json
+~/models/Qwen2.5-7B-4bit/tokenizer.json
+~/models/Qwen2.5-7B-4bit/README.md
+~/models/Qwen2.5-7B-4bit/chat_template.jinja
+~/models/Qwen2.5-7B-4bit/model.safetensors.index.json
+~/models/Qwen2.5-Coder-32B-4bit
+~/models/Qwen2.5-Coder-32B-4bit/model-00004-of-00004.safetensors
+~/models/Qwen2.5-Coder-32B-4bit/model-00001-of-00004.safetensors
+~/models/Qwen2.5-Coder-32B-4bit/tokenizer_config.json
+~/models/Qwen2.5-Coder-32B-4bit/config.json
+~/models/Qwen2.5-Coder-32B-4bit/tokenizer.json
+~/models/Qwen2.5-Coder-32B-4bit/README.md
+~/models/Qwen2.5-Coder-32B-4bit/model-00003-of-00004.safetensors
+~/models/Qwen2.5-Coder-32B-4bit/chat_template.jinja
+~/models/Qwen2.5-Coder-32B-4bit/model.safetensors.index.json
+~/models/Qwen2.5-Coder-32B-4bit/model-00002-of-00004.safetensors
+
+## /Users/kermitv/Models
+ 21G	/Users/kermitv/Models
+~/Models/Qwen2.5-7B-4bit
+~/Models/Qwen2.5-7B-4bit/model.safetensors
+~/Models/Qwen2.5-7B-4bit/tokenizer_config.json
+~/Models/Qwen2.5-7B-4bit/config.json
+~/Models/Qwen2.5-7B-4bit/tokenizer.json
+~/Models/Qwen2.5-7B-4bit/README.md
+~/Models/Qwen2.5-7B-4bit/chat_template.jinja
+~/Models/Qwen2.5-7B-4bit/model.safetensors.index.json
+~/Models/Qwen2.5-Coder-32B-4bit
+~/Models/Qwen2.5-Coder-32B-4bit/model-00004-of-00004.safetensors
+~/Models/Qwen2.5-Coder-32B-4bit/model-00001-of-00004.safetensors
+~/Models/Qwen2.5-Coder-32B-4bit/tokenizer_config.json
+~/Models/Qwen2.5-Coder-32B-4bit/config.json
+~/Models/Qwen2.5-Coder-32B-4bit/tokenizer.json
+~/Models/Qwen2.5-Coder-32B-4bit/README.md
+~/Models/Qwen2.5-Coder-32B-4bit/model-00003-of-00004.safetensors
+~/Models/Qwen2.5-Coder-32B-4bit/chat_template.jinja
+~/Models/Qwen2.5-Coder-32B-4bit/model.safetensors.index.json
+~/Models/Qwen2.5-Coder-32B-4bit/model-00002-of-00004.safetensors
+
+## /Users/kermitv/.openclaw
+ 49M	/Users/kermitv/.openclaw
+~/.openclaw/exec-approvals.sock
+~/.openclaw/exec-approvals.json
+~/.openclaw/settings
+~/.openclaw/settings/voicewake.json
+~/.openclaw/openclaw.json
+~/.openclaw/memory
+~/.openclaw/memory/main.sqlite
+~/.openclaw/identity
+~/.openclaw/identity/device.json
+~/.openclaw/identity/device-auth.json
+~/.openclaw/openclaw.json.bak
+~/.openclaw/openclaw.json.clobbered.2026-03-27T05-55-55-809Z
+~/.openclaw/completions
+~/.openclaw/completions/openclaw.fish
+~/.openclaw/completions/openclaw.ps1
+~/.openclaw/completions/openclaw.zsh
+~/.openclaw/completions/openclaw.bash
+~/.openclaw/openclaw.json.clobbered.2026-03-27T21-59-30-852Z
+~/.openclaw/workspace
+~/.openclaw/workspace/IDENTITY.md
+~/.openclaw/workspace/HEARTBEAT.md
+~/.openclaw/workspace/.openclaw
+~/.openclaw/workspace/BOOTSTRAP.md
+~/.openclaw/workspace/USER.md
+~/.openclaw/workspace/SOUL.md
+~/.openclaw/workspace/AGENTS.md
+~/.openclaw/workspace/.git
+~/.openclaw/workspace/TOOLS.md
+~/.openclaw/openclaw.json.bak.4
+~/.openclaw/openclaw.json.bak.3
+~/.openclaw/agents
+~/.openclaw/agents/main
+~/.openclaw/openclaw.json.bak.2
+~/.openclaw/canvas
+~/.openclaw/canvas/index.html
+~/.openclaw/openclaw.json.clobbered.2026-03-27T05-54-18-745Z
+~/.openclaw/logs
+~/.openclaw/logs/gateway.log
+~/.openclaw/logs/config-audit.jsonl
+~/.openclaw/logs/gateway.err.log
+~/.openclaw/logs/config-health.json
+~/.openclaw/openclaw.json.clobbered.2026-03-27T21-59-30-853Z
+~/.openclaw/update-check.json
+~/.openclaw/telegram
+~/.openclaw/telegram/command-hash-default-f66a468d5c62e8fc.txt
+~/.openclaw/openclaw-clobbered-archive-2026-03-27T18-50-05.zip
+~/.openclaw/openclaw.json.bak.1
+~/.openclaw/devices
+~/.openclaw/devices/paired.json
+~/.openclaw/devices/pending.json
+~/.openclaw/media
+~/.openclaw/media/inbound

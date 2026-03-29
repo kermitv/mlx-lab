@@ -1,0 +1,30 @@
+# ~/.openclaw/openclaw.json
+--- BEGIN /Users/kermitv/.openclaw/openclaw.json ---
+{
+  "agents": {
+    "defaults": {
+      "model": "openai-codex/gpt-5.4",
+      "workspace": "~/Projects/OpenClaw/workspace"
+    }
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "5c09cd4df83b5cc9d195cdb2f186e31032b31653471d6e2b"
+    }
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.3.24",
+    "lastTouchedAt": "2026-03-27T21:59:26.979Z"
+  }
+}
+--- END /Users/kermitv/.openclaw/openclaw.json ---
+
+# ~/.config/openclaw

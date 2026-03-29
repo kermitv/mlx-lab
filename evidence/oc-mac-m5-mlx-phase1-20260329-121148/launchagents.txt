@@ -1,0 +1,60 @@
+$ sh -c 
+  {
+    echo "# user launchagents"
+    find "$HOME/Library/LaunchAgents" -maxdepth 1 -type f 2>/dev/null | sed "s#^$HOME#~#" || true
+    echo
+    echo "# grep likely relevant launchagent contents"
+    for f in "$HOME"/Library/LaunchAgents/*.plist; do
+      [ -f "$f" ] || continue
+      if grep -Eiq "mlx|python|uvicorn|fastapi|openclaw|qwen" "$f" 2>/dev/null; then
+        echo
+        echo "## $f"
+        plutil -p "$f" 2>/dev/null || cat "$f"
+      fi
+    done
+    echo
+    echo "# launchctl user services hint"
+    launchctl list 2>/dev/null | egrep -i "mlx|python|openclaw|qwen|uvicorn|fastapi" || true
+  }
+
+# user launchagents
+~/Library/LaunchAgents/ai.openclaw.gateway.plist
+
+# grep likely relevant launchagent contents
+
+## /Users/kermitv/Library/LaunchAgents/ai.openclaw.gateway.plist
+{
+  "Comment" => "OpenClaw Gateway (v2026.3.24)"
+  "EnvironmentVariables" => {
+    "HOME" => "/Users/kermitv"
+    "NODE_EXTRA_CA_CERTS" => "/etc/ssl/cert.pem"
+    "NODE_USE_SYSTEM_CA" => "1"
+    "OPENCLAW_GATEWAY_PORT" => "18789"
+    "OPENCLAW_LAUNCHD_LABEL" => "ai.openclaw.gateway"
+    "OPENCLAW_SERVICE_KIND" => "gateway"
+    "OPENCLAW_SERVICE_MARKER" => "openclaw"
+    "OPENCLAW_SERVICE_VERSION" => "2026.3.24"
+    "OPENCLAW_SYSTEMD_UNIT" => "openclaw-gateway.service"
+    "OPENCLAW_WINDOWS_TASK_NAME" => "OpenClaw Gateway"
+    "PATH" => "/opt/homebrew/opt/node/bin:/Users/kermitv/.local/bin:/Users/kermitv/.npm-global/bin:/Users/kermitv/bin:/Users/kermitv/.volta/bin:/Users/kermitv/.asdf/shims:/Users/kermitv/.bun/bin:/Users/kermitv/Library/Application Support/fnm/aliases/default/bin:/Users/kermitv/.fnm/aliases/default/bin:/Users/kermitv/Library/pnpm:/Users/kermitv/.local/share/pnpm:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+    "TMPDIR" => "/var/folders/gl/k2fc6jqs3sq0v4w8yt3wdpkh0000gn/T/"
+  }
+  "KeepAlive" => true
+  "Label" => "ai.openclaw.gateway"
+  "ProgramArguments" => [
+    0 => "/opt/homebrew/opt/node/bin/node"
+    1 => "/opt/homebrew/lib/node_modules/openclaw/dist/index.js"
+    2 => "gateway"
+    3 => "--port"
+    4 => "18789"
+  ]
+  "RunAtLoad" => true
+  "StandardErrorPath" => "/Users/kermitv/.openclaw/logs/gateway.err.log"
+  "StandardOutPath" => "/Users/kermitv/.openclaw/logs/gateway.log"
+  "ThrottleInterval" => 1
+  "Umask" => 63
+}
+
+# launchctl user services hint
+678	0	application.ai.openclaw.mac.1357499.1357508
+1305	0	ai.openclaw.gateway
