@@ -127,6 +127,24 @@ Observed tradeoff:
 - recommended current default remains HF-ID serving
 - local-path serving is now a validated controlled option
 
+### Default serving style decision
+
+Selected default:
+- Hugging Face ID serving
+
+Validated controlled option:
+- local-path serving from `~/models`
+
+Why this default:
+- Cleaner model identifiers for local clients
+- Better client ergonomics for OpenAI-compatible tools
+- Still uses local cached artifacts in practice
+- Keeps explicit local-path serving available when tighter artifact control is needed
+
+Current implication:
+- Canonical day-to-day server usage remains HF-ID based
+- Local-path serving is retained as a documented and validated option, not the default
+
 ### Canonical MLX server launch pattern (validated)
 
 Environment: `~/mlx-env`
