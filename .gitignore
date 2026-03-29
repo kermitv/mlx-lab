@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# MLX / models / caches
+models/
+Models/
+.cache/
+*.safetensors
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
