@@ -69,6 +69,46 @@ Not selected for now:
 
 ---
 
+## Model Source Strategy (working mental model)
+
+MLX supports multiple ways of loading models:
+
+- Hugging Face model IDs (e.g. `mlx-community/Qwen2.5-32B-Instruct-4bit`)
+- Local model directories (paths on disk)
+- Converted models produced via `mlx_lm.convert`
+
+Hugging Face integration is the default behavior for MLX:
+- Models are downloaded automatically when referenced
+- Models are cached locally under `~/.cache/huggingface/hub`
+- Tokenizers and configs are resolved automatically  [oai_citation:0‡Hugging Face](https://huggingface.co/docs/hub/en/mlx?utm_source=chatgpt.com)
+
+The lab uses a layered model:
+
+- Hugging Face cache (`~/.cache/huggingface`)
+  - Role: upstream distribution and caching layer
+  - Not operator-facing
+  - Not considered the canonical model inventory
+
+- Local model directory (candidate: `~/models`)
+  - Role: curated, operator-visible model inventory
+  - Intended future canonical reference for serving and documentation
+
+Notes:
+- MLX can load both Hugging Face IDs and local paths  [oai_citation:1‡GitHub](https://github.com/simonw/llm-mlx/issues/12?utm_source=chatgpt.com)
+- Hugging Face is preferred for discovery and initial model acquisition
+- Local directories will be used for clarity, reproducibility, and multi-client usage
+
+Status:
+- This is a working mental model only
+- No cleanup, migration, or enforcement has been performed yet
+
+Open questions:
+- Should MLX server serve from Hugging Face IDs, local paths, or both?
+- How should models be promoted from Hugging Face cache into local directory?
+- Should duplicate local directories be consolidated or removed?
+
+---
+
 ## Open Questions
 
 ---
