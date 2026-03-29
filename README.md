@@ -145,6 +145,21 @@ Current implication:
 - Canonical day-to-day server usage remains HF-ID based
 - Local-path serving is retained as a documented and validated option, not the default
 
+### Legacy MLX environment assessment
+
+Environment under review:
+- `~/.mlx-venv`
+
+Current assessment:
+- `~/mlx-env` is the validated canonical MLX environment
+- `~/.mlx-venv` is no longer required for the documented default serving pattern
+- The previously stale active OpenClaw lab-plan reference has been updated to `~/mlx-env`
+- Remaining `.mlx-venv` references are historical evidence and past-state documentation
+- No deletion has been performed yet
+
+Retirement criterion:
+- Remove `~/.mlx-venv` only after confirming there are no remaining required references or unique capabilities
+
 ### Canonical MLX server launch pattern (validated)
 
 Environment: `~/mlx-env`
