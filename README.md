@@ -157,7 +157,58 @@ Open questions:
 
 ---
 
+## Token Handling (current lab pattern)
+
+Scope:
+- Hugging Face token handling for MLX model acquisition on `oc-mac-m5`
+
+Current pattern:
+- Do not store `HF_TOKEN` in `~/.zprofile` or other always-loaded shell startup files
+- Do not store tokens in this repo
+- Prefer macOS Keychain for secure local storage
+- Acceptable fallback: manual session export outside the repo when needed
+- Cached local models may allow serving without an active Hugging Face token
+
+Preferred handling:
+- Store the token outside repo-tracked files
+- Export it only when needed for new model acquisition or gated model access
+- Treat shell history, dotfiles, logs, and markdown notes as places where secrets should not live
+
+Status:
+- This is the current MLX lab handling pattern only
+- It is not yet a governed OpenClaw runtime procedure
+
+Future promotion note:
+- If Hugging Face token handling becomes part of the stable `oc-mac-m5` bring-up or governed runtime operating pattern, promote a compact no-secrets version of this guidance into `openclaw-runtime-lab`
+- Any promoted version should keep secrets node-local and out of repos
+
+---
+
 ## Open Questions
+
+---
+
+## Phase Status
+
+### Phase 1 — Baseline validation (complete)
+
+- [x] Canonical MLX environment selected (`~/mlx-env`)
+- [x] MLX server launch pattern defined and validated
+- [x] Server bound to loopback (`127.0.0.1`)
+- [x] OpenAI-compatible API confirmed (`/v1`)
+- [x] `/health` endpoint returns OK
+- [x] `/v1/models` returns expected models
+- [x] At least one real client works (Aider)
+- [x] Hugging Face token removed from shell config
+- [x] Token stored in Keychain and retrievable
+- [x] README reflects validated state only (no speculation)
+
+### Phase 2 — Model control (pending)
+
+- [ ] Canonical model directory enforced (`~/models`)
+- [ ] HF cache vs local model inventory clarified
+- [ ] Optional: migrate one model to local-path serving
+- [ ] Remove or archive unused MLX environments
 
 ---
 
