@@ -16,3 +16,6 @@ Models/
 # Logs
 *.log
 .aider*
+
+# Benchmark execution scratch and telemetry
+benchmark-runs/
