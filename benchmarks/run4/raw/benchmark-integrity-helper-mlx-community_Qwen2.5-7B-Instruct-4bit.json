@@ -1,0 +1,27 @@
+{
+  "id": "chatcmpl-c5f1fb8f-2e96-47e4-9885-380b91f554a4",
+  "system_fingerprint": "0.31.1-0.31.1-macOS-26.4-arm64-arm-64bit-applegpu_g17s",
+  "object": "chat.completion",
+  "model": "mlx-community/Qwen2.5-7B-Instruct-4bit",
+  "created": 1774838034,
+  "choices": [
+    {
+      "index": 0,
+      "finish_reason": "stop",
+      "message": {
+        "role": "assistant",
+        "content": "## Findings\nThe existing script has several issues:\n1. It returns `0` even if files are missing, which is not a clear exit code.\n2. It does not check for blocked tasks in the summary.\n3. It does not stay bounded to the benchmark workspace.\n4. It does not emit clear maintainability or practical operator value.\n\n## Minimum Safe Correction Set\nTo address the issues, we need to:\n1. Return a clear exit code indicating the presence or absence of required files.\n2. Check for blocked tasks in the summary.\n3. Ensure the script stays bounded to the benchmark workspace.\n4. Improve maintainability and operator readability.\n\n## Evidence Boundaries\nThe evidence provided is the existing broken helper script and the requirements for the new helper script.\n\n## Final Answer\n```markdown\n```python\n#!/usr/bin/env python3\nimport os\nimport sys\nfrom pathlib import Path\n\n\ndef check_files(run_dir):\n    required_files = [\n        \"summary.md\",\n        \"scores/quality_scores.csv\",\n        \"scores/operational_scores.csv\",\n    ]\n    missing_files = [file for file in required_files if not Path(run_dir, file).exists()]\n    return missing_files\n\n\ndef check_summary(run_dir):\n    summary_path = Path(run_dir, \"summary.md\")\n    if not summary_path.exists():\n        return []\n\n    with open(summary_path, \"r\") as f:\n        summary = f.read()\n        blocked_tasks = [line.strip() for line in summary.split(\"\\n\") if line.startswith(\"Blocked:\")]\n        return blocked_tasks\n\n\ndef main(argv):\n    run_dir = Path(argv[1]).resolve()\n    missing_files = check_files(run_dir)\n    blocked_tasks = check_summary(run_dir)\n\n    if missing_files:\n        print(f\"Missing files: {', '.join(missing_files)}\")\n        sys.exit(1)\n\n    if blocked_tasks:\n        print(f\"Blocked tasks: {', '.join(blocked_tasks)}\")\n        sys.exit(1)\n\n    print(\"OK\")\n    sys.exit(0)\n\n\nif __name__ == \"__main__\":\n    main(sys.argv)\n```\n```",
+        "reasoning": "",
+        "tool_calls": []
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 320,
+    "completion_tokens": 434,
+    "total_tokens": 754,
+    "prompt_tokens_details": {
+      "cached_tokens": 87
+    }
+  }
+}

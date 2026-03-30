@@ -1,0 +1,72 @@
+{
+  "initial_response": {
+    "id": "chatcmpl-DOwlH5mc2ey9N9lX8MphPJ1R90nxG",
+    "object": "chat.completion",
+    "created": 1774838123,
+    "model": "gpt-5.4-2026-03-05",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "refusal": null,
+          "annotations": []
+        },
+        "finish_reason": "length"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 296,
+      "completion_tokens": 900,
+      "total_tokens": 1196,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 900,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "service_tier": "default",
+    "system_fingerprint": null
+  },
+  "retry_response": {
+    "id": "chatcmpl-DOwlTLZLCijD5EIMPi6S0cUyELTzO",
+    "object": "chat.completion",
+    "created": 1774838135,
+    "model": "gpt-5.4-2026-03-05",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "## Findings\n- The existing helper only checks three paths and returns `0` even when files are missing, so it does not emit meaningful failure exit codes.\n- It does not verify that **both score CSVs** exist in an operator-readable way beyond a generic message.\n- It does not check whether **blocked tasks are represented in `summary.md`**.\n- It resolves the input path but does not explicitly enforce a **bounded workspace check** against the current benchmark workspace.\n- It provides minimal operator value because output is not specific.\n\n## Minimum Safe Correction Set\nUse a bounded replacement script that:\n- accepts a single `run_dir` argument\n- enforces `run_dir` is inside the current workspace (`Path.cwd()`)\n- validates required artifacts:\n  - `summary.md`\n  - `scores/quality_scores.csv`\n  - `scores/operational_scores.csv`\n- parses score CSVs for blocked tasks via a conservative `status` column check\n- verifies any blocked task IDs found in score CSVs are mentioned in `summary.md`\n- emits clear exit codes and readable results\n- performs no mutation\n\n```python\n#!/usr/bin/env python3\nfrom pathlib import Path\nimport csv\nimport sys\n\n\nEXIT_OK = 0\nEXIT_USAGE = 2\nEXIT_BOUNDARY = 3\nEXIT_MISSING = 4\nEXIT_BLOCKED_SUMMARY = 5\nEXIT_PARSE = 6\n\n\ndef is_within(base: Path, target: Path) -> bool:\n    try:\n        target.relative_to(base)\n        return True\n    except ValueError:\n        return False\n\n\ndef read_blocked_tasks(csv_path: Path):\n    blocked = set()\n    try:\n        with csv_path.open(newline=\"\", encoding=\"utf-8\") as f:\n            reader = csv.DictReader(f)\n            if reader.fieldnames is None:\n                return blocked, [f\"{csv_path}: missing CSV header\"]\n\n            fieldnames = {name.strip() for name in reader.fieldnames if name}\n            if \"status\" not in fieldnames:\n                return blocked, []\n\n            task_key = None\n            for candidate in (\"task\", \"task_id\", \"id\", \"name\"):\n                if candidate in fieldnames:\n                    task_key = candidate\n                    break\n\n            issues = []\n            if task_key is None:\n                issues.append(f\"{csv_path}: has status column but no task identifier column\")\n\n            for idx, row in enumerate(reader, start=2):\n                status = (row.get(\"status\") or \"\").strip().lower()\n                if status == \"blocked\":\n                    task_id = (row.get(task_key) or \"\").strip() if task_key else \"\"\n                    if task_id:\n                        blocked.add(task_id)\n                    else:\n                        issues.append(f\"{csv_path}:{idx}: blocked row missing task identifier\")\n            return blocked, issues\n    except Exception as exc:\n        return blocked, [f\"{csv_path}: failed to parse CSV ({exc})\"]\n\n\ndef main(argv):\n    if len(argv) != 2:\n        print(\"usage: validate_artifacts.py <run_dir>\")\n        return EXIT_USAGE\n\n    workspace = Path.cwd().resolve()\n    run_dir = Path(argv[1]).resolve()\n\n    if not is_within(workspace, run_dir):\n        print(f\"ERROR: run_dir is outside workspace: {run_dir}\")\n        print(f\"workspace: {workspace}\")\n        return EXIT_BOUNDARY\n\n    required = [\n        run_dir / \"summary.md\",\n        run_dir / \"scores\" / \"quality_scores.csv\",\n        run_dir / \"scores\" / \"operational_scores.csv\",\n    ]\n\n    missing = [str(path.relative_to(workspace)) for path in required if not path.is_file()]\n    if missing:\n        print(\"ERROR: missing required benchmark artifacts:\")\n        for path in missing:\n            print(f\" - {path}\")\n        return EXIT_MISSING\n\n    summary_path = run_dir / \"summary.md\"\n    summary_text = summary_path.read_text(encoding=\"utf-8\", errors=\"replace\")\n\n    blocked_tasks = set()\n    parse_issues = []\n    for csv_path in (run_dir / \"scores\" / \"quality_scores.csv\",\n                     run_dir / \"scores\" / \"operational_scores.csv\"):\n        found, issues = read_blocked_tasks(csv_path)\n        blocked_tasks.update(found)\n        parse_issues.extend(issues)\n\n    if parse_issues:\n        print(\"ERROR: CSV validation issues:\")\n        for issue in parse_issues:\n            print(f\" - {issue}\")\n        return EXIT_PARSE\n\n    missing_from_summary = sorted(task for task in blocked_tasks if task not in summary_text)\n    if missing_from_summary:\n        print(\"ERROR: blocked tasks not represented in summary.md:\")\n        for task in missing_from_summary:\n            print(f\" - {task}\")\n        return EXIT_BLOCKED_SUMMARY\n\n    print(\"OK: benchmark artifacts complete\")\n    print(\" - summary.md present\")\n    print(\" - scores/quality_scores.csv present\")\n    print(\" - scores/operational_scores.csv present\")\n    if blocked_tasks:\n        print(f\" - blocked tasks represented in summary.md: {len(blocked_tasks)}\")\n    else:\n        print(\" - no blocked tasks found in score CSVs\")\n    return EXIT_OK\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main(sys.argv))\n```\n\n## Evidence Boundaries\n- I only used the provided broken helper and the stated requirements.\n- \u201cBlocked tasks are represented in summary\u201d is underspecified; this replacement uses a bounded, practical rule:\n  - inspect score CSVs for rows where `status == blocked`\n  - require each blocked task identifier to appear somewhere in `summary.md`\n- CSV schema is not fully specified. The script therefore only relies on common columns:\n  - `status`\n  - one of `task`, `task_id`, `id`, or `name` for task identity\n- I did not assume or introduce any mutation, external filesystem traversal, or unrelated refactors.\n\n## Final Answer\nThe bounded replacement above repairs the helper to:\n- validate artifact completeness\n- verify both score CSVs exist\n- check blocked tasks are represented in `summary.md`\n- stay within the benchmark workspace\n- emit clear exit codes and operator-readable results\n\nIt is maintainable, non-mutating, and directly addresses the stated benchmark requirements.",
+          "refusal": null,
+          "annotations": []
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 330,
+      "completion_tokens": 1301,
+      "total_tokens": 1631,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "service_tier": "default",
+    "system_fingerprint": null
+  }
+}

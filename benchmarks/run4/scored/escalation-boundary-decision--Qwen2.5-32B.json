@@ -1,0 +1,12 @@
+{
+  "task": "escalation-boundary-decision",
+  "task_class": "architecture",
+  "model": "Qwen2.5-32B",
+  "source_model_id": "mlx-community/Qwen2.5-32B-Instruct-4bit",
+  "latency_sec": 43.378,
+  "tokens_in": 2267,
+  "tokens_out": 900,
+  "score_accuracy": 10.0,
+  "score_structure": 7.25,
+  "score_hallucination_risk": 3.5
+}

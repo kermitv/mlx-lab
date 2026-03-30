@@ -1,0 +1,12 @@
+{
+  "task": "multi-file-repair",
+  "task_class": "engineering",
+  "model": "Qwen2.5-Coder-32B",
+  "source_model_id": "mlx-community/Qwen2.5-Coder-32B-Instruct-4bit",
+  "latency_sec": 32.6,
+  "tokens_in": 452,
+  "tokens_out": 755,
+  "score_accuracy": 10.0,
+  "score_structure": 9.25,
+  "score_hallucination_risk": 2.5
+}

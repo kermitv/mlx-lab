@@ -1,0 +1,12 @@
+{
+  "task": "multi-file-repair",
+  "task_class": "engineering",
+  "model": "Qwen3.5-27B",
+  "source_model_id": "mlx-community/Qwen3.5-27B-4bit",
+  "latency_sec": 32.851,
+  "tokens_in": 470,
+  "tokens_out": 900,
+  "score_accuracy": 9.0,
+  "score_structure": 7.25,
+  "score_hallucination_risk": 3.5
+}

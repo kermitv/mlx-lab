@@ -1,0 +1,12 @@
+{
+  "task": "benchmark-integrity-helper",
+  "task_class": "tooling",
+  "model": "gpt-5.2-codex",
+  "source_model_id": "gpt-5.2-codex",
+  "latency_sec": 9.244,
+  "tokens_in": 296,
+  "tokens_out": 900,
+  "score_accuracy": 10.0,
+  "score_structure": 7.5,
+  "score_hallucination_risk": 3.5
+}

@@ -1,0 +1,12 @@
+{
+  "task": "partial-failure-debugging",
+  "task_class": "debugging",
+  "model": "Qwen2.5-32B",
+  "source_model_id": "mlx-community/Qwen2.5-32B-Instruct-4bit",
+  "latency_sec": 15.112,
+  "tokens_in": 440,
+  "tokens_out": 326,
+  "score_accuracy": 6.5,
+  "score_structure": 9.5,
+  "score_hallucination_risk": 5.0
+}

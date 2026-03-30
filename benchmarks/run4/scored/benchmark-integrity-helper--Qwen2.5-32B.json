@@ -1,0 +1,12 @@
+{
+  "task": "benchmark-integrity-helper",
+  "task_class": "tooling",
+  "model": "Qwen2.5-32B",
+  "source_model_id": "mlx-community/Qwen2.5-32B-Instruct-4bit",
+  "latency_sec": 19.975,
+  "tokens_in": 320,
+  "tokens_out": 445,
+  "score_accuracy": 10.0,
+  "score_structure": 9.5,
+  "score_hallucination_risk": 2.5
+}

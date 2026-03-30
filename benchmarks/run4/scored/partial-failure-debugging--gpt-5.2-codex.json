@@ -1,0 +1,12 @@
+{
+  "task": "partial-failure-debugging",
+  "task_class": "debugging",
+  "model": "gpt-5.2-codex",
+  "source_model_id": "gpt-5.2-codex",
+  "latency_sec": 9.588,
+  "tokens_in": 411,
+  "tokens_out": 783,
+  "score_accuracy": 10.0,
+  "score_structure": 9.5,
+  "score_hallucination_risk": 2.5
+}

@@ -1,0 +1,12 @@
+{
+  "task": "escalation-boundary-decision",
+  "task_class": "architecture",
+  "model": "gpt-5.4",
+  "source_model_id": "gpt-5.4",
+  "latency_sec": 43.059,
+  "tokens_in": 2204,
+  "tokens_out": 1636,
+  "score_accuracy": 10.0,
+  "score_structure": 8.25,
+  "score_hallucination_risk": 3.0
+}

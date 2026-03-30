@@ -1,0 +1,12 @@
+{
+  "task": "multi-file-repair",
+  "task_class": "engineering",
+  "model": "gpt-5.4",
+  "source_model_id": "gpt-5.4",
+  "latency_sec": 32.797,
+  "tokens_in": 461,
+  "tokens_out": 1210,
+  "score_accuracy": 10.0,
+  "score_structure": 8.25,
+  "score_hallucination_risk": 3.0
+}

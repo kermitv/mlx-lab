@@ -1,0 +1,72 @@
+{
+  "initial_response": {
+    "id": "chatcmpl-DOwpdwRRfzsMqGOHgn6AICi0xcGd4",
+    "object": "chat.completion",
+    "created": 1774838393,
+    "model": "gpt-5.4-2026-03-05",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "refusal": null,
+          "annotations": []
+        },
+        "finish_reason": "length"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2170,
+      "completion_tokens": 900,
+      "total_tokens": 3070,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 900,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "service_tier": "default",
+    "system_fingerprint": null
+  },
+  "retry_response": {
+    "id": "chatcmpl-DOwptQvQPtnAYmmTrulbya1KR5stm",
+    "object": "chat.completion",
+    "created": 1774838409,
+    "model": "gpt-5.4-2026-03-05",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "## Findings\n- **Use fast local default** for:\n  - **benchmark-integrity/helper / repo-engineering style tasks**\n  - **straightforward multi-file repair** where defects are concrete and evidence-local\n- Evidence:\n  - `mlx-community/Qwen2.5-7B-Instruct-4bit` was strongest local overall in prior run: **overall quality 9.69 / operational 9.77**\n  - In current run, 7B scored:\n    - benchmark-integrity-helper: **10.0 / 9.5**\n    - multi-file-repair: **9.0 / 9.5**\n  - This supports a practical threshold: **default to fast local for bounded repo checks and repair tasks when the task is evidence-local and not deeply inferential**.\n\n- **Use a stronger local coding specialist** for:\n  - **harder multi-file repair / code-edit generation** where rationale around scoring/exclusion rules or malformed-row handling matters\n- Evidence:\n  - Current run:\n    - `mlx-community/Qwen2.5-Coder-32B-Instruct-4bit`: multi-file-repair **10.0 / 8.75**\n    - `mlx-community/Qwen2.5-32B-Instruct-4bit`: multi-file-repair **10.0 / 8.75**\n  - Prior run escalation notes already pointed to a **coder 32B threshold**.\n  - Bounded conclusion: **promote from fast local to stronger local coding model when repair spans multiple files and requires more exact code-change reasoning than simple defect spotting**.\n\n- **Use a stronger local reasoning lane** for:\n  - **partial-failure debugging / contradiction reconciliation / sequence inference**\n- Evidence:\n  - Current run debugging:\n    - `gpt-5.2-codex`: **10.0 / 10.0**\n    - `gpt-5.4`: **10.0 / 8.25**\n    - local models lagged:\n      - `Qwen2.5-32B-Instruct`: **6.5 / 9.5**\n      - `Qwen2.5-7B-Instruct`: **5.0 / 9.5**\n      - `Qwen2.5-Coder-32B`: **5.0 / 9.5**\n  - Prior run had stronger local debugging scores, but current run shows a clear gap on this task class.\n  - Practical threshold: **if the task requires reconstructing likely sequence, preserving evidence/history distinctions, or resolving contradictory logs, do not rely on fast local by default**.\n\n- **Escalate to frontier** for:\n  - **debugging / reasoning-heavy adjudication** when correctness matters and contradiction resolution is central\n  - **ambiguous or mixed evidence cases** where sequence inference must be accurate\n- Evidence:\n  - Current run frontier models clearly outperformed locals on debugging:\n    - `gpt-5.2-codex`: **10.0**\n    - `gpt-5.4`: **10.0**\n  - Frontier also remained strong on helper and repair tasks, though local models were already adequate there.\n  - So escalation should be **task-class based**, not universal.\n\n- **MLX-lab-only conclusions**\n  - Local routing conclusions are supported for:\n    - `mlx-community/Qwen2.5-7B-Instruct-4bit`\n    - `mlx-community/Qwen2.5-Coder-32B-Instruct-4bit`\n    - `mlx-community/Qwen2.5-32B-Instruct-4bit`\n    - one current-run observation for `mlx-community/Qwen3.5-27B-4bit`\n  - These support **local guidance**, not broad runtime promotion claims.\n  - In particular, the recommendation that **7B is the fast local default for bounded helper/repair tasks** is currently **mlx-lab-supported**, not yet promotion-grade for openclaw-runtime-lab.\n\n## Minimum Safe Correction Set\n- Route by task class:\n  1. **Fast local default**: bounded benchmark-integrity/helper and simpler multi-file repair.\n  2. **Stronger local coding specialist**: more complex multi-file repair / code-edit tasks.\n  3. **Stronger local reasoning lane**: debugging, contradiction resolution, sequence reconstruction.\n  4. **Frontier escalation**: when reasoning-heavy debugging is correctness-critical or evidence is ambiguous.\n\n- Practical thresholds from evidence:\n  - **Stay on fast local** when the task is mainly:\n    - checking CSV/report consistency\n    - verifying blocked-task accounting\n    - identifying concrete repair defects with direct evidence\n  - **Move to stronger local coding** when the task includes:\n    - multi-file edits with scoring-policy rationale\n    - malformed-row/data-loss handling\n    - more exact implementation synthesis\n  - **Move to stronger reasoning / frontier** when the task includes:\n    - contradictory logs\n    - inferring likely event order\n    - preserving correction-vs-history distinctions\n    - high consequence from a mistaken inference\n\n## Evidence Boundaries\n- Missing evidence before promotion into **openclaw-runtime-lab**:\n  - **Repeated runs** for stability, especially on current frontier results and current local debugging weakness.\n  - **Latency/cost/resource data**; present evidence is quality/operational only.\n  - **Broader task coverage** beyond three active task classes in current run.\n  - **Runtime-environment validation** outside mlx-lab; current local results are lab-specific.\n  - **Failure-rate variance** under longer sessions / more adversarial inputs.\n  - **Direct comparison for a designated \u201clocal reasoning lane\u201d model**; current local set does not cleanly establish a best stronger-local reasoner.\n\n- Explicit uncertainty:\n  - Prior run suggested locals were stronger on debugging than current run shows; this means **debugging routing is not yet fully stable across runs**.\n  - Frontier superiority on debugging is supported by current evidence, but **this should not be overclaimed as a topology or permanent routing change**.\n  - `gpt-5.2-codex` appears strongest on debugging in the current run, but promotion-grade selection among frontier options needs more than one run.\n\n## Final Answer\n- **Fast local default:** use for **benchmark-integrity/helper** and **bounded multi-file repair**. Best-supported local default is **`mlx-community/Qwen2.5-7B-Instruct-4bit`** because it was best overall in prior run and remains strong in current helper/repair tasks.\n- **Stronger local coding specialist:** use for **harder code-edit / multi-file repair** tasks. Best-supported local specialist is **`mlx-community/Qwen2.5-Coder-32B-Instruct-4bit`** (with `Qwen2.5-32B-Instruct` also supported) when repair requires more exact implementation reasoning.\n- **Stronger local reasoning lane:** use for **debugging, contradiction reconciliation, and sequence inference**. Current evidence does **not** identify a reliably strong local reasoning winner; local models underperformed frontier on this task class in the current run.\n- **Escalate to frontier:** do so for **reasoning-heavy debugging** and **ambiguous evidence adjudication**. Current best evidence supports this from `gpt-5.2-codex` and `gpt-5.4` on partial-failure debugging.\n- **MLX-lab-only conclusions:** local-model routing recommendations are **mlx-lab guidance only**. They support task-class routing inside the lab, not promotion-grade runtime decisions.\n- **Still missing before promotion into openclaw-runtime-lab:** repeated-run stability, latency/cost data, broader task coverage, non-mlx runtime validation, variance/failure analysis, and stronger evidence for any dedicated **local reasoning lane**.",
+          "refusal": null,
+          "annotations": []
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 2204,
+      "completion_tokens": 1636,
+      "total_tokens": 3840,
+      "prompt_tokens_details": {
+        "cached_tokens": 1792,
+        "audio_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+      }
+    },
+    "service_tier": "default",
+    "system_fingerprint": null
+  }
+}

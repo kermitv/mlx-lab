@@ -1,0 +1,12 @@
+{
+  "task": "partial-failure-debugging",
+  "task_class": "debugging",
+  "model": "gpt-5.4",
+  "source_model_id": "gpt-5.4",
+  "latency_sec": 30.203,
+  "tokens_in": 445,
+  "tokens_out": 874,
+  "score_accuracy": 10.0,
+  "score_structure": 8.25,
+  "score_hallucination_risk": 3.0
+}
