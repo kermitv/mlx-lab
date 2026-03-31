@@ -1,0 +1,280 @@
+:root {
+  --bg: #f3f1ea;
+  --panel: #fffdf8;
+  --panel-strong: #fffaf0;
+  --ink: #111827;
+  --muted: #4b5563;
+  --line: #ddd6c8;
+  --accent: #155e75;
+  --accent-2: #c2410c;
+  --shadow: 0 16px 44px rgba(17, 24, 39, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55;
+  background:
+    radial-gradient(circle at top left, rgba(21, 94, 117, 0.08), transparent 30%),
+    radial-gradient(circle at top right, rgba(194, 65, 12, 0.07), transparent 26%),
+    linear-gradient(180deg, #faf8f2 0%, var(--bg) 100%);
+}
+
+a {
+  color: var(--accent);
+}
+
+.page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px 20px 72px;
+}
+
+.hero,
+.card,
+.chart-card,
+.nav {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+}
+
+.nav-home {
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.hero {
+  padding: 30px 30px 24px;
+  background: linear-gradient(135deg, rgba(21, 94, 117, 0.08), rgba(194, 65, 12, 0.06));
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+h1 {
+  font-size: 42px;
+  line-height: 1.08;
+}
+
+h2 {
+  font-size: 28px;
+  line-height: 1.12;
+}
+
+h3 {
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.lede,
+.section-copy,
+.card p,
+.chart-card p,
+.small,
+footer {
+  color: var(--muted);
+}
+
+.lede {
+  max-width: 930px;
+  margin: 14px 0 0;
+  font-size: 17px;
+}
+
+.hero-links,
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.button {
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 600;
+}
+
+.button-primary {
+  color: white;
+  background: var(--accent);
+}
+
+.button-secondary {
+  color: var(--ink);
+  background: rgba(17, 24, 39, 0.06);
+}
+
+.meta-grid,
+.story-grid,
+.insights,
+.run-grid,
+.chart-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.meta-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin-top: 22px;
+}
+
+.story-grid,
+.run-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.insights {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.pill,
+.card,
+.chart-card {
+  padding: 18px;
+}
+
+.pill {
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.pill-label {
+  margin: 0 0 4px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pill-value {
+  margin: 0;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.section {
+  margin-top: 36px;
+}
+
+.section-copy {
+  max-width: 920px;
+  margin: 10px 0 18px;
+}
+
+.card {
+  background: var(--panel);
+}
+
+.card h3,
+.chart-card h3 {
+  margin-bottom: 8px;
+}
+
+.card ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.run-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 250, 240, 0.95));
+}
+
+.featured {
+  border-color: rgba(21, 94, 117, 0.28);
+  background: linear-gradient(180deg, rgba(21, 94, 117, 0.08), rgba(255, 253, 248, 0.98));
+}
+
+.frame {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f8f5ee;
+}
+
+.frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.callout {
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(21, 94, 117, 0.24);
+  background: rgba(21, 94, 117, 0.07);
+}
+
+.repo-link {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.94em;
+}
+
+footer {
+  margin-top: 36px;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .page {
+    padding: 20px 14px 48px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

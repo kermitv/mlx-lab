@@ -25,9 +25,11 @@ Run progression so far:
   - local reasoning/governance lane: `mlx-community/Qwen2.5-32B-Instruct-4bit`
   - frontier produced stronger answers on some tasks, but did not justify universal escalation in this run
 
-Presentation-oriented Run 4 review:
-- Dashboard:
-  [`benchmarks/run4/index.html`](benchmarks/run4/index.html) — presentation-oriented review surface with charts, narrative framing, and links into the underlying Run 4 data.
+Presentation-oriented benchmark review:
+- GitHub Pages:
+  `https://kermitv.github.io/mlx-lab/` — narrative surface for the benchmark program, with a dedicated Run 4 review page and links back into the repo.
+- Run 4 repo artifact:
+  [`benchmarks/run4/`](benchmarks/run4/) — repo-backed benchmark artifact with prompts, scored outputs, normalized data, charts, and the original dashboard source.
 - Normalized data:
   `benchmarks/run4/data/`
 - Full Run 4 execution evidence:

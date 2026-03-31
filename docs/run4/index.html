@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Run 4 Review | MLX Lab Benchmark Program</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="nav">
+      <a class="nav-home" href="../index.html">MLX Lab Benchmark Program</a>
+      <div class="nav-links">
+        <a href="../index.html">Overview</a>
+        <a href="https://github.com/kermitv/mlx-lab/tree/master/benchmarks/run4">Run 4 artifact</a>
+        <a href="https://github.com/kermitv/mlx-lab">Repo</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <p class="eyebrow">MLX Lab Benchmark Review</p>
+      <h1>Run 4: Local-to-Frontier Escalation Boundary</h1>
+      <p class="lede">
+        Run 4 is the first benchmark in this repo that directly tested whether selected frontier models materially changed the routing recommendation established by the earlier local-only runs.
+      </p>
+      <div class="meta-grid">
+        <div class="pill">
+          <p class="pill-label">Best Local Default</p>
+          <p class="pill-value">Qwen2.5-7B</p>
+        </div>
+        <div class="pill">
+          <p class="pill-label">Best Local Coding</p>
+          <p class="pill-value">Qwen2.5-Coder-32B</p>
+        </div>
+        <div class="pill">
+          <p class="pill-label">Best Local Reasoning</p>
+          <p class="pill-value">Qwen2.5-32B</p>
+        </div>
+        <div class="pill">
+          <p class="pill-label">Frontier Verdict</p>
+          <p class="pill-value">Stronger quality, not a universal default</p>
+        </div>
+      </div>
+      <div class="button-row">
+        <a class="button button-primary" href="https://github.com/kermitv/mlx-lab/blob/master/benchmarks/run4/summary.md">Run 4 summary</a>
+        <a class="button button-secondary" href="https://github.com/kermitv/mlx-lab/blob/master/benchmarks/run4/data/rows.csv">rows.csv</a>
+        <a class="button button-secondary" href="https://github.com/kermitv/mlx-lab/blob/master/benchmarks/run4/data/routing_summary.json">routing_summary.json</a>
+        <a class="button button-secondary" href="https://github.com/kermitv/mlx-lab/blob/master/benchmarks/run4/data/README.md">data provenance</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Why Run 4 Matters</h2>
+      <p class="section-copy">
+        Earlier runs already suggested a local routing stack: use the fast 7B lane by default, escalate to the coder 32B lane for harder repair work, and prefer the 32B instruct lane for reasoning and governance-style tasks. Run 4 tested whether frontier changed that enough to justify routine escalation.
+      </p>
+      <div class="insights">
+        <article class="card">
+          <h3>What Held Up</h3>
+          <p>The local routing story remained coherent. The 7B lane still carried the operational default, and stronger local specialists still had clear role separation.</p>
+        </article>
+        <article class="card">
+          <h3>What Changed</h3>
+          <p>Frontier did produce stronger answers on some tasks, especially under ambiguity, but the gain was not large enough in this run to displace the local-first routing recommendation.</p>
+        </article>
+        <article class="card">
+          <h3>What Stayed Bounded</h3>
+          <p>These are mlx-lab-only findings. Memory looked satisfactory for the tested workloads, but process-level memory telemetry remained partial.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Reading Guide</h2>
+      <p class="section-copy">
+        Start with quality versus latency, then read the frontier-versus-local gap chart. Those two visuals carry most of the routing interpretation. The heatmap and quadrant view are there to test whether that reading stays coherent across all task families.
+      </p>
+    </section>
+
+    <section class="chart-grid section">
+      <article class="card chart-card">
+        <h3>Quality vs Latency</h3>
+        <p>This is the quickest view of whether better answers actually bought enough to justify slower response. It explains why the fastest local model can still be the right operational default.</p>
+        <div class="frame">
+          <img src="../assets/run4/quality_vs_latency.svg" alt="Run 4 quality versus latency chart">
+        </div>
+      </article>
+
+      <article class="card chart-card">
+        <h3>Task by Model Heatmap</h3>
+        <p>This chart makes the non-universal-winner story visible. Task-specific routing matters more than any single leaderboard rank.</p>
+        <div class="frame">
+          <img src="../assets/run4/task_model_heatmap.svg" alt="Run 4 task by model heatmap">
+        </div>
+      </article>
+
+      <article class="card chart-card">
+        <h3>Frontier vs Local Gaps by Task Class</h3>
+        <p>This chart directly answers the escalation question. It shows where frontier opens a real quality gap and where it only ties or loses on operational value relative to the best local lane.</p>
+        <div class="frame">
+          <img src="../assets/run4/frontier_vs_local_gap.svg" alt="Run 4 frontier versus local gap chart">
+        </div>
+      </article>
+
+      <article class="card chart-card">
+        <h3>Operational vs Quality Quadrants</h3>
+        <p>This separates best-answer quality from best unattended default. It helps explain why the strongest model on paper should not automatically become the first routing choice.</p>
+        <div class="frame">
+          <img src="../assets/run4/operational_vs_quality.svg" alt="Run 4 operational versus quality chart">
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="callout">
+        <h2>Source of Truth</h2>
+        <p class="section-copy">
+          This page is interpretive. The source of truth remains the repository artifact, including raw responses, scored outputs, normalized tables, and full-run execution evidence.
+        </p>
+        <div class="button-row">
+          <a class="button button-primary" href="https://github.com/kermitv/mlx-lab/tree/master/benchmarks/run4">Open Run 4 artifact</a>
+          <a class="button button-secondary" href="https://github.com/kermitv/mlx-lab/tree/master/benchmark-runs/run-20260329-run4-frontier-boundary">Open full run evidence</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Static GitHub Pages review surface for Run 4. No framework, no client-side filtering, repo-backed evidence.
+    </footer>
+  </main>
+</body>
+</html>
