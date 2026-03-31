@@ -17,6 +17,35 @@ Node posture:
 
 ---
 
+## Benchmark Program
+
+The benchmark work in this repo has become a small routing study, not just a speed test.
+
+Run progression so far:
+- Run 1 established baseline local viability and showed that the fast 7B lane was already useful on this node.
+- Run 2 shifted from “one best model” toward “best model by use case,” separating operational default, reasoning, and coding roles.
+- Run 3 sharpened local escalation thresholds by task class, even though frontier access was unavailable in that run.
+- Run 4 tested the local-to-frontier escalation boundary directly and confirmed the current mlx-lab routing story:
+  - fast local default: `mlx-community/Qwen2.5-7B-Instruct-4bit`
+  - local coding specialist: `mlx-community/Qwen2.5-Coder-32B-Instruct-4bit`
+  - local reasoning/governance lane: `mlx-community/Qwen2.5-32B-Instruct-4bit`
+  - frontier produced stronger answers on some tasks, but did not justify universal escalation in this run
+
+Presentation-oriented Run 4 review:
+- Dashboard:
+  `benchmarks/run4/index.html`
+- Normalized data:
+  `benchmarks/run4/data/`
+- Full Run 4 execution evidence:
+  `benchmark-runs/run-20260329-run4-frontier-boundary/`
+
+Current benchmark posture:
+- useful for mlx-lab routing guidance now
+- still bounded to this host, this model set, and these benchmark families
+- not yet promotion-grade evidence for canonical OpenClaw runtime policy
+
+---
+
 ## Evidence
 
 Initial MLX environment capture (Phase 1):
