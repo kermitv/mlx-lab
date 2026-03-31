@@ -71,10 +71,72 @@
     </section>
 
     <section class="section">
+      <h2>How To Read The Scores</h2>
+      <p class="section-copy">
+        The benchmark does not treat a single numeric score as a universal truth. The 1 to 10 scores are operator-oriented judgment scores built from saved raw responses, extracted answers, and per-task verdicts. They are useful for comparison inside this run, but they are not academic benchmarks and they should not be overread outside the tested task families.
+      </p>
+      <div class="guide-grid">
+        <article class="card">
+          <h3>Quality Score Meaning</h3>
+          <p>The main quality axis reflects how well a model solved the actual task, not how polished the prose looked.</p>
+          <span class="definition"><strong>9 to 10:</strong> strong result with correct or near-correct handling, bounded claims, and useful operator value.</span>
+          <span class="definition"><strong>7 to 8:</strong> useful but with omissions, weaker precision, or some need for operator interpretation.</span>
+          <span class="definition"><strong>5 to 6:</strong> partially helpful, but too incomplete or error-prone to trust unattended.</span>
+          <span class="definition"><strong>Below 5:</strong> materially weak, misleading, or not operationally dependable for the benchmarked task.</span>
+        </article>
+        <article class="card">
+          <h3>What “Quality” Covers Here</h3>
+          <p>Run 4 quality was intentionally multidimensional, even when summarized into a smaller set of charts.</p>
+          <ul>
+            <li>Root-cause identification and fix correctness for coding and debugging tasks.</li>
+            <li>Boundedness, governance fidelity, and overclaim avoidance for reasoning-heavy tasks.</li>
+            <li>Final-answer usefulness and maintainability, not just raw verbosity or confidence.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Operational Score Meaning</h3>
+          <p>The operational axis is about unattended usefulness rather than answer quality alone.</p>
+          <ul>
+            <li>Higher is better for latency, reliability, formatting consistency, and clean completion.</li>
+            <li>A model can score high on quality and still lose operationally if it is slower, retry-prone, or harder to trust unattended.</li>
+            <li>This is why the fastest local lane can remain the best default even when it is not the single strongest model on every task.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
       <h2>Reading Guide</h2>
       <p class="section-copy">
         Start with quality versus latency, then read the frontier-versus-local gap chart. Those two visuals carry most of the routing interpretation. The heatmap and quadrant view are there to test whether that reading stays coherent across all task families.
       </p>
+      <div class="guide-grid">
+        <article class="card">
+          <h3>Heatmap Interpretation</h3>
+          <p>Each cell represents the per-task quality result for one model on one benchmark family. Darker or stronger cells indicate higher quality within the Run 4 1 to 10 scale.</p>
+          <ul>
+            <li>Read across a row to compare models on the same task family.</li>
+            <li>Read down a column to see whether a model is specialized or broadly consistent.</li>
+            <li>The important question is not “who is best overall,” but “where does a stronger model materially change the outcome?”</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Quality vs Latency Interpretation</h3>
+          <p>Points higher on the chart are better answers; points further left are faster. The useful region is the upper-left, where a model gives strong quality without paying unnecessary latency.</p>
+          <ul>
+            <li>If a frontier point is only slightly higher but much slower, that usually does not justify routine escalation.</li>
+            <li>If a stronger local specialist moves meaningfully upward without extreme latency cost, that supports local-first escalation before frontier.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Gap and Quadrant Interpretation</h3>
+          <p>The gap chart asks whether frontier materially beat the best local result by task class. The quadrant chart asks whether a model is strong as an unattended default or only strong when answer quality is the only priority.</p>
+          <ul>
+            <li>A zero or near-zero frontier gap means local was already sufficient for that task class in this run.</li>
+            <li>A positive frontier gap matters most when it is paired with acceptable operational tradeoffs, not just a better raw answer.</li>
+          </ul>
+        </article>
+      </div>
     </section>
 
     <section class="chart-grid section">

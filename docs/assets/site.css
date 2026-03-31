@@ -156,7 +156,8 @@ footer {
 .story-grid,
 .insights,
 .run-grid,
-.chart-grid {
+.chart-grid,
+.guide-grid {
   display: grid;
   gap: 18px;
 }
@@ -173,6 +174,10 @@ footer {
 
 .insights {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.guide-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .pill,
@@ -223,6 +228,21 @@ footer {
   margin: 12px 0 0;
   padding-left: 18px;
   color: var(--muted);
+}
+
+.card li + li {
+  margin-top: 8px;
+}
+
+.definition {
+  display: block;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.definition strong {
+  color: var(--ink);
 }
 
 .run-card {
