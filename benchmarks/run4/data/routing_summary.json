@@ -1,0 +1,46 @@
+[
+  {
+    "task_class": "architecture",
+    "best_local_default": "Qwen2.5-7B",
+    "best_local_specialist": "Qwen2.5-7B",
+    "best_frontier": "gpt-5.4",
+    "quality_gap_frontier_vs_best_local": 0.0,
+    "operational_gap_frontier_vs_best_local": -1.25,
+    "recommended_route": "fast_local_default",
+    "confidence": "medium",
+    "evidence_limit": "mlx-lab-only single-run evidence; not promotion-grade"
+  },
+  {
+    "task_class": "debugging",
+    "best_local_default": "Qwen2.5-7B",
+    "best_local_specialist": "Qwen2.5-32B",
+    "best_frontier": "gpt-5.2-codex",
+    "quality_gap_frontier_vs_best_local": 3.5,
+    "operational_gap_frontier_vs_best_local": 0.5,
+    "recommended_route": "frontier",
+    "confidence": "medium",
+    "evidence_limit": "mlx-lab-only single-run evidence; not promotion-grade"
+  },
+  {
+    "task_class": "engineering",
+    "best_local_default": "Qwen2.5-7B",
+    "best_local_specialist": "Qwen2.5-Coder-32B",
+    "best_frontier": "gpt-5.4",
+    "quality_gap_frontier_vs_best_local": 0.0,
+    "operational_gap_frontier_vs_best_local": -0.5,
+    "recommended_route": "fast_local_default",
+    "confidence": "medium",
+    "evidence_limit": "mlx-lab-only single-run evidence; not promotion-grade"
+  },
+  {
+    "task_class": "tooling",
+    "best_local_default": "Qwen2.5-7B",
+    "best_local_specialist": "Qwen2.5-7B",
+    "best_frontier": "gpt-5.2-codex",
+    "quality_gap_frontier_vs_best_local": 0.0,
+    "operational_gap_frontier_vs_best_local": -0.5,
+    "recommended_route": "fast_local_default",
+    "confidence": "medium",
+    "evidence_limit": "mlx-lab-only single-run evidence; not promotion-grade"
+  }
+]

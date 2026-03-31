@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Run 4 Benchmark Review</title>
+  <style>
+    :root {
+      --bg: #f3f1ea;
+      --panel: #fffdf8;
+      --ink: #111827;
+      --muted: #4b5563;
+      --line: #ddd6c8;
+      --accent: #155e75;
+      --accent2: #c2410c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(21,94,117,0.08), transparent 30%),
+        radial-gradient(circle at top right, rgba(124,58,237,0.08), transparent 24%),
+        linear-gradient(180deg, #faf8f2 0%, var(--bg) 100%);
+      line-height: 1.5;
+    }
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 34px 20px 72px;
+    }
+    .hero, .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 16px 44px rgba(17,24,39,0.05);
+    }
+    .hero {
+      padding: 30px 30px 24px;
+      background: linear-gradient(135deg, rgba(21,94,117,0.08), rgba(194,65,12,0.06));
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    h1 {
+      margin: 0;
+      font: 700 42px/1.08 Georgia, "Times New Roman", serif;
+    }
+    .lede {
+      max-width: 930px;
+      margin: 14px 0 0;
+      font-size: 17px;
+      color: var(--muted);
+    }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .pill {
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.75);
+      padding: 14px 16px;
+    }
+    .pill-label {
+      margin: 0 0 4px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .pill-value {
+      margin: 0;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .links a {
+      text-decoration: none;
+      color: var(--accent);
+      background: rgba(21,94,117,0.08);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .links a.secondary {
+      color: var(--ink);
+      background: rgba(17,24,39,0.06);
+    }
+    .section-title {
+      margin: 38px 0 10px;
+      font: 700 28px/1.15 Georgia, "Times New Roman", serif;
+    }
+    .section-copy {
+      margin: 0 0 18px;
+      color: var(--muted);
+      max-width: 920px;
+    }
+    .insights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+    .card {
+      padding: 18px 18px 16px;
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font: 700 21px/1.15 Georgia, "Times New Roman", serif;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+    .chart-grid {
+      display: grid;
+      gap: 24px;
+    }
+    .chart-card {
+      padding: 18px;
+    }
+    .chart-card h3 {
+      margin: 0 0 8px;
+      font: 700 22px/1.15 Georgia, "Times New Roman", serif;
+    }
+    .chart-card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      max-width: 900px;
+    }
+    .frame {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #f8f5ee;
+    }
+    .frame img {
+      width: 100%;
+      display: block;
+      height: auto;
+    }
+    footer {
+      margin-top: 36px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.95em;
+    }
+    @media (max-width: 980px) {
+      .insights { grid-template-columns: 1fr; }
+      h1 { font-size: 34px; }
+      .page { padding: 22px 14px 48px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">MLX Lab Benchmark Review</p>
+      <h1>Run 4: Local-to-Frontier Escalation Boundary</h1>
+      <p class="lede">
+        This page is a presentation surface for Run 4. It focuses on where local models were already sufficient, where stronger local specialists made sense, and where frontier quality justified escalation by task class.
+      </p>
+      <div class="meta">
+        <div class="pill">
+          <p class="pill-label">Best Local Default</p>
+          <p class="pill-value">Qwen2.5-7B</p>
+        </div>
+        <div class="pill">
+          <p class="pill-label">Best Local Coding</p>
+          <p class="pill-value">Qwen2.5-Coder-32B</p>
+        </div>
+        <div class="pill">
+          <p class="pill-label">Best Local Reasoning</p>
+          <p class="pill-value">Qwen2.5-32B</p>
+        </div>
+        <div class="pill">
+          <p class="pill-label">Frontier Verdict</p>
+          <p class="pill-value">Stronger quality, not a universal default</p>
+        </div>
+      </div>
+      <div class="links">
+        <a href="./summary.md">Run 4 summary</a>
+        <a href="./data/rows.csv" class="secondary">rows.csv</a>
+        <a href="./data/routing_summary.json" class="secondary">routing_summary.json</a>
+        <a href="./data/README.md" class="secondary">data provenance</a>
+      </div>
+    </section>
+
+    <h2 class="section-title">Reading Guide</h2>
+    <p class="section-copy">
+      Start with the quality-versus-latency chart and then the task-class gap chart. Those two visuals contain most of the routing insight from Run 4. The heatmap and quadrant view are better for verifying that the interpretation stays coherent across all task families.
+    </p>
+
+    <section class="insights">
+      <article class="card">
+        <h2>What This Suggests</h2>
+        <p>Use the fast local default for routine bounded work, then escalate first to stronger local specialists before jumping to frontier for every non-trivial task.</p>
+      </article>
+      <article class="card">
+        <h2>What This Does Not Prove</h2>
+        <p>These are single-run, mlx-lab-only findings. They are useful for local routing guidance but are not promotion-grade evidence for canonical runtime policy.</p>
+      </article>
+      <article class="card">
+        <h2>Memory Bound</h2>
+        <p>Memory looked satisfactory for the tested workloads, but precise per-process memory telemetry was blocked, so that conclusion remains observational rather than instrumented.</p>
+      </article>
+    </section>
+
+    <section class="chart-grid">
+      <article class="card chart-card">
+        <h3>Quality vs Latency</h3>
+        <p>This view shows whether better answers are actually buying enough to justify slower response. It is the quickest way to see why the fastest local model can still be the right operational default.</p>
+        <div class="frame">
+          <img src="./charts/quality_vs_latency.svg" alt="Run 4 quality versus latency chart">
+        </div>
+      </article>
+
+      <article class="card chart-card">
+        <h3>Task by Model Heatmap</h3>
+        <p>This chart makes the non-universal-winner story visible. It shows where task-specific routing matters more than any single leaderboard rank.</p>
+        <div class="frame">
+          <img src="./charts/task_model_heatmap.svg" alt="Run 4 task by model heatmap">
+        </div>
+      </article>
+
+      <article class="card chart-card">
+        <h3>Frontier vs Local Gaps by Task Class</h3>
+        <p>This directly answers the escalation question. It shows where frontier opens a real quality gap and where it only ties or loses on operational value relative to the best local lane.</p>
+        <div class="frame">
+          <img src="./charts/frontier_vs_local_gap.svg" alt="Run 4 frontier versus local gap chart">
+        </div>
+      </article>
+
+      <article class="card chart-card">
+        <h3>Operational vs Quality Quadrants</h3>
+        <p>This separates “best answer quality” from “best unattended default.” It helps explain why the strongest model on paper should not automatically become the first routing choice.</p>
+        <div class="frame">
+          <img src="./charts/operational_vs_quality.svg" alt="Run 4 operational versus quality chart">
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      Built from <code>benchmarks/run4/data/</code>. This page is presentation-oriented and does not replace the underlying benchmark evidence.
+    </footer>
+  </main>
+</body>
+</html>
