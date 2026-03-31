@@ -11,12 +11,6 @@ Node posture:
 
 ---
 
-## Current Known Facts
-
-(To be filled in from Phase 1)
-
----
-
 ## Benchmark Program
 
 The benchmark work in this repo has become a small routing study, not just a speed test.
@@ -33,7 +27,7 @@ Run progression so far:
 
 Presentation-oriented Run 4 review:
 - Dashboard:
-  `benchmarks/run4/index.html`
+  [`benchmarks/run4/index.html`](benchmarks/run4/index.html) — presentation-oriented review surface with charts, narrative framing, and links into the underlying Run 4 data.
 - Normalized data:
   `benchmarks/run4/data/`
 - Full Run 4 execution evidence:
@@ -69,18 +63,16 @@ Initial MLX environment capture (Phase 1):
   - OpenClaw config (redacted)
 
 Notes:
-- Multiple MLX environments detected (`~/.mlx-venv`, `~/mlx-env`)
-- MLX server currently running on port `8080`
-- Server bound to `0.0.0.0` (not loopback-only)
-- Duplicate model storage exists (`~/models`, `~/Models`, Hugging Face cache)
+- This capture reflects the earlier observed state before cleanup and standardization.
+- It remains useful as baseline evidence, but current validated decisions are recorded below.
 
 ---
 
 ## Decisions (only after validated)
 
-### Canonical MLX environment candidate
+### Canonical MLX environment
 
-Selected candidate: `~/mlx-env`
+Selected: `~/mlx-env`
 
 Why:
 - This environment has the clearest verified MLX package set in the Phase 1 evidence.
@@ -88,28 +80,22 @@ Why:
 - It is less entangled with OpenClaw application/runtime work than `~/Projects/OpenClaw/venv`.
 - Local client use against the MLX endpoint has already been exercised from this environment.
 
-Not selected for now:
-- `~/.mlx-venv` — retained temporarily for comparison/rollback only because it is the currently serving MLX environment on port `8080`.
-- `~/Projects/OpenClaw/venv` — retained as an application-specific project environment, not the canonical MLX environment.
+Not selected:
+- `~/Projects/OpenClaw/venv` — application-specific project environment, not the canonical MLX environment
 
-### Canonical local model directory candidate
+### Canonical local model directory
 
-Selected candidate: `~/models`
+Selected: `~/models`
 
 Why:
 - Simpler and more conventional lowercase path for operator-facing documentation
 - Better fit for a curated local model inventory concept
 - Easier to reference consistently across lab notes and local client examples
 
-Not selected for now:
-- `~/Models` — retained temporarily as an observed duplicate local model location
-- `~/.cache/huggingface/hub` — treated separately as the Hugging Face cache layer, not the canonical local model directory
+Not selected:
+- `~/.cache/huggingface/hub` — upstream cache layer, not the canonical local model directory
 
-### Local model inventory (current observed state)
-
-Observed directories:
-- `~/models`
-- `~/Models`
+### Local model inventory
 
 Observed model families:
 - `Qwen2.5-7B-4bit`
@@ -120,17 +106,9 @@ Observed sizes:
 - `Qwen2.5-Coder-32B-4bit` ≈ `17G`
 
 Current state:
-- `~/models` and `~/Models` appear to be duplicate local model directories
-- No cleanup has been performed yet
-- Current validated server pattern still uses Hugging Face model IDs, not local paths
-
-First local-path serving candidate:
-- `~/models/Qwen2.5-7B-4bit`
-
-Why this candidate:
-- Smaller and lower-risk for first local-path validation
-- Fastest path to proving the local-path serving pattern
-- Leaves the larger 32B model for later controlled validation
+- `~/models` is the canonical local model directory
+- Current validated default serving pattern still uses Hugging Face model IDs, not local paths
+- Local-path serving from `~/models` remains a validated controlled option
 
 ### Local-path serving validation (7B model)
 
@@ -156,20 +134,6 @@ Observed tradeoff:
 - recommended current default remains HF-ID serving
 - local-path serving is now a validated controlled option
 
-### Duplicate local model directory retirement assessment
-
-Directory retired:
-- `~/Models`
-
-Current assessment:
-- `~/models` is the canonical local model directory
-- Active documentation references were updated from `~/Models` to `~/models`
-- The duplicate `~/Models` directory has been removed
-- Canonical HF-ID serving was revalidated successfully after retirement
-
-Status note:
-- Duplicate local model directory retirement completed
-
 ### Default serving style decision
 
 Selected default:
@@ -187,20 +151,6 @@ Why this default:
 Current implication:
 - Canonical day-to-day server usage remains HF-ID based
 - Local-path serving is retained as a documented and validated option, not the default
-
-### Legacy MLX environment assessment
-
-Environment under review:
-- `~/.mlx-venv`
-
-Current assessment:
-- `~/mlx-env` is the validated canonical MLX environment
-- `~/.mlx-venv` has been removed
-- Canonical HF-ID serving was revalidated successfully after retirement
-- Remaining `.mlx-venv` references are historical documentation only
-
-Retirement criterion:
-- Retirement completed; historical references may be cleaned up separately
 
 ### Canonical MLX server launch pattern (validated)
 
@@ -233,13 +183,8 @@ Validation evidence:
 - No dependency on `~/.mlx-venv`
 
 Current live variance:
-- Previous server used `~/.mlx-venv` and `0.0.0.0`
+- Earlier observed server state used a different environment and broader bind target
 - Canonical pattern now uses `~/mlx-env` and `127.0.0.1`
-- No cleanup has been performed yet
-
----
-
-## Commands That Actually Work
 
 ---
 
@@ -263,9 +208,9 @@ The lab uses a layered model:
   - Not operator-facing
   - Not considered the canonical model inventory
 
-- Local model directory (candidate: `~/models`)
+- Local model directory (`~/models`)
   - Role: curated, operator-visible model inventory
-  - Intended future canonical reference for serving and documentation
+  - Canonical local model directory for operator-facing documentation
 
 Notes:
 - MLX can load both Hugging Face IDs and local paths  [oai_citation:1‡GitHub](https://github.com/simonw/llm-mlx/issues/12?utm_source=chatgpt.com)
@@ -273,13 +218,13 @@ Notes:
 - Local directories will be used for clarity, reproducibility, and multi-client usage
 
 Status:
-- This is a working mental model only
-- No cleanup, migration, or enforcement has been performed yet
+- This is still a working mental model around sourcing and promotion
+- Current validated default remains HF-ID serving with local-path serving as a controlled option
 
 Open questions:
 - Should MLX server serve from Hugging Face IDs, local paths, or both?
 - How should models be promoted from Hugging Face cache into local directory?
-- Should duplicate local directories be consolidated or removed?
+- When should operator-facing docs prefer the canonical local model inventory over the Hugging Face cache view?
 
 ---
 
@@ -307,12 +252,6 @@ Status:
 Future promotion note:
 - If Hugging Face token handling becomes part of the stable `oc-mac-m5` bring-up or governed runtime operating pattern, promote a compact no-secrets version of this guidance into `openclaw-runtime-lab`
 - Any promoted version should keep secrets node-local and out of repos
-
----
-
-## Open Questions
-
----
 
 ## Phase Status
 
@@ -348,6 +287,6 @@ Done:
 
 ## Next Actions
 
-- Record canonical local model directory candidate in lab notes
-- Define canonical MLX server launch command from the selected env and model reference style
-- decide canonical default serving style (HF-ID default vs local-path default)
+- Add a small GitHub Pages narrative surface for the benchmark program if the Run 4 dashboard proves useful for ongoing review
+- Expand the benchmark series with repeated-run stability checks, better memory observability, and harder multi-file repair tasks
+- Keep current mlx-lab routing guidance clearly separated from any future OpenClaw runtime-policy promotion
