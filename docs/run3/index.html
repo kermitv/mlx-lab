@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Run 3 Summary | MLX Lab Benchmark Program</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="nav">
+      <a class="nav-home" href="../index.html">MLX Lab Benchmark Program</a>
+      <div class="nav-links">
+        <a href="../index.html">Overview</a>
+        <a href="../run4/index.html">Run 4 review</a>
+        <a href="https://github.com/kermitv/mlx-lab">Repo</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <p class="eyebrow">Run Summary</p>
+      <h1>Run 3: Local Escalation Thresholds</h1>
+      <p class="lede">
+        Run 3 sharpened the routing question by task class. Frontier access was unavailable, but the run still produced the strongest local-only threshold picture before Run 4 tested the frontier boundary directly.
+      </p>
+      <div class="meta-grid">
+        <div class="pill">
+          <p class="pill-label">Completion Time</p>
+          <p class="pill-value">2026-03-29 18:07 MDT</p>
+        </div>
+        <div class="pill">
+          <p class="pill-label">Best Default</p>
+          <p class="pill-value">Qwen2.5-7B</p>
+        </div>
+        <div class="pill">
+          <p class="pill-label">Best Reasoning</p>
+          <p class="pill-value">Qwen2.5-32B</p>
+        </div>
+        <div class="pill">
+          <p class="pill-label">Main Outcome</p>
+          <p class="pill-value">Thresholds by task class</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>What Run 3 Asked</h2>
+      <div class="guide-grid">
+        <article class="card">
+          <h3>Primary Question</h3>
+          <p>At what complexity threshold should work stay on the fast local default, escalate to a stronger local specialist, or escalate to frontier if local is no longer enough?</p>
+        </article>
+        <article class="card">
+          <h3>Models Compared</h3>
+          <p>Local models only in scored terms: <span class="repo-link">Qwen2.5-7B-Instruct-4bit</span>, <span class="repo-link">Qwen2.5-Coder-32B-Instruct-4bit</span>, and <span class="repo-link">Qwen2.5-32B-Instruct-4bit</span>. Frontier references were blocked.</p>
+        </article>
+        <article class="card">
+          <h3>Task Shape</h3>
+          <p>Multi-file repair, repo engineering helper work, debugging with contradictions, and explicit escalation-decision reasoning.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>What It Found</h2>
+      <div class="insights">
+        <article class="card">
+          <h3>7B Still Carried The Default</h3>
+          <p>The fast 7B lane remained the strongest general operational default and even scored extremely well across the scored local task set in this run.</p>
+        </article>
+        <article class="card">
+          <h3>32B Instruct Won The Reasoning Role</h3>
+          <p><span class="repo-link">Qwen2.5-32B-Instruct-4bit</span> became the clearer local choice for debugging narratives, contradiction analysis, and governance-bounded escalation decisions.</p>
+        </article>
+        <article class="card">
+          <h3>Coder 32B Stayed Conditional</h3>
+          <p>The coder lane was still useful, but this run did not show a clear enough advantage over 7B to justify promoting it to universal default or even universal coding winner.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="callout">
+        <h2>Why It Still Matters</h2>
+        <p class="section-copy">
+          Run 3 set up the exact question Run 4 needed to answer. It defined the local routing thresholds first, then left frontier as the missing comparison lane rather than pretending the local-only answer was complete.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      This is a lightweight Pages summary derived from the local Run 3 benchmark outputs. It captures the routing interpretation, not the full raw evidence set.
+    </footer>
+  </main>
+</body>
+</html>
