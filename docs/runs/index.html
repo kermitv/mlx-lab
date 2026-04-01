@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Benchmark Catalog | MLX Lab Benchmark Program</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <main class="page">
+    <nav class="nav">
+      <a class="nav-home" href="../index.html">MLX Lab Benchmark Program</a>
+      <div class="nav-links">
+        <a href="../index.html">Overview</a>
+        <a href="../run4/index.html">Run 4 review</a>
+        <a href="https://github.com/kermitv/mlx-lab">Repo</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <p class="eyebrow">Benchmark Catalog</p>
+      <h1>What Problems Were Run, And What Happened</h1>
+      <p class="lede">
+        This page is the easiest cross-run inventory of the benchmark program so far. It lists the task types used in each run, the models in scope, and the main outcomes without making you dig through raw run directories, score CSVs, and per-task logs.
+      </p>
+      <div class="button-row">
+        <a class="button button-primary" href="../index.html">Back to benchmark overview</a>
+        <a class="button button-secondary" href="../run4/index.html">Open Run 4 review</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How To Use This Page</h2>
+      <div class="guide-grid">
+        <article class="card">
+          <h3>Runs Are Not Identical</h3>
+          <p>The benchmark program evolved across runs. Early runs were simpler and more exploratory; later runs were more structured and closer to a routing benchmark.</p>
+        </article>
+        <article class="card">
+          <h3>Task Names Matter</h3>
+          <p>Each run used a small set of benchmark problems. Those problem definitions are what determine whether a score or model recommendation means anything.</p>
+        </article>
+        <article class="card">
+          <h3>Run 4 Is The Most Structured</h3>
+          <p>Run 4 has the cleanest prompt set, normalized data layer, saved raw outputs, and chart-backed interpretation. Runs 1 to 3 are lighter and should be read accordingly.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Run 1</h2>
+      <p class="section-copy">
+        Run 1 was the baseline viability run. It asked whether a local MLX-served model on oc-mac-m5 was already practically useful before any deeper routing or escalation logic was introduced.
+      </p>
+      <div class="guide-grid">
+        <article class="card">
+          <h3>Models In Scope</h3>
+          <p><span class="repo-link">Qwen2.5-7B-Instruct-4bit</span>, <span class="repo-link">Qwen2.5-32B-Instruct-4bit</span>, and <span class="repo-link">Qwen2.5-Coder-32B-Instruct-4bit</span>.</p>
+        </article>
+        <article class="card">
+          <h3>Problems Run</h3>
+          <ul>
+            <li><strong>Throughput:</strong> streamed local generation benchmark focused on TTFT and tokens per second.</li>
+            <li><strong>Coding:</strong> generate a real <span class="repo-link">scripts/phase1-capture.sh</span> body for MLX/OpenClaw diagnostics.</li>
+            <li><strong>Reasoning:</strong> recommend an OpenClaw topology, routing, and governance stance for oc-mac-m5 from repo evidence.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Main Results</h3>
+          <ul>
+            <li>The 7B lane won overall, won throughput, and led on the benchmarked coding and reasoning tasks.</li>
+            <li>The larger models did not justify default promotion on this first pass.</li>
+            <li>The durable conclusion was that local-first on this node was already viable.</li>
+          </ul>
+          <div class="button-row">
+            <a class="button button-secondary" href="../run1/index.html">Run 1 summary page</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Run 2</h2>
+      <p class="section-copy">
+        Run 2 moved from “which model is best” toward “which model is best for which kind of work.” It expanded the problem set and added a broader role-separation question.
+      </p>
+      <div class="guide-grid">
+        <article class="card">
+          <h3>Models In Scope</h3>
+          <p><span class="repo-link">Qwen2.5-7B-Instruct-4bit</span>, <span class="repo-link">Qwen2.5-32B-Instruct-4bit</span>, <span class="repo-link">Qwen2.5-Coder-32B-Instruct-4bit</span>, and <span class="repo-link">DeepSeek-R1-Distill-Qwen-32B-4bit</span>.</p>
+        </article>
+        <article class="card">
+          <h3>Problems Run</h3>
+          <ul>
+            <li><strong>Throughput:</strong> concise topology-difference bullets with warm-up excluded from scoring.</li>
+            <li><strong>Coding:</strong> repair a broken benchmark harness with mislabeled timing, warm-up contamination, and malformed JSON handling defects.</li>
+            <li><strong>Long-context reasoning:</strong> infer current versus planned oc-mac-m5 role using only local repo evidence.</li>
+            <li><strong>Governance overclaim:</strong> distinguish safe claims from unsafe promotion-grade claims and identify proper document placement.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Main Results</h3>
+          <ul>
+            <li>The 7B lane stayed the best operational default.</li>
+            <li>The 32B instruct lane became the stronger hard-problem and reasoning option.</li>
+            <li>The coding lane was mixed rather than decisively specialist.</li>
+            <li>The benchmark program started to look more like routing by use case than a single leaderboard.</li>
+          </ul>
+          <div class="button-row">
+            <a class="button button-secondary" href="../run2/index.html">Run 2 summary page</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Run 3</h2>
+      <p class="section-copy">
+        Run 3 sharpened the local escalation threshold question. Frontier was unavailable, but the run still tested whether harder engineering and debugging tasks justified moving off the fast local default.
+      </p>
+      <div class="guide-grid">
+        <article class="card">
+          <h3>Models In Scope</h3>
+          <p>Local models: <span class="repo-link">Qwen2.5-7B-Instruct-4bit</span>, <span class="repo-link">Qwen2.5-Coder-32B-Instruct-4bit</span>, and <span class="repo-link">Qwen2.5-32B-Instruct-4bit</span>. Frontier references were attempted but blocked.</p>
+        </article>
+        <article class="card">
+          <h3>Problems Run</h3>
+          <ul>
+            <li><strong>Multi-file repair showdown:</strong> determine whether the coding-specialist lane materially beats the 7B default on bounded engineering repair.</li>
+            <li><strong>Repo engineering helper:</strong> create or repair a benchmark integrity helper that checks artifacts, score CSVs, blocked task representation, and workspace boundaries.</li>
+            <li><strong>Debugging contradictions:</strong> resolve inconsistent run state with malformed logs and overstated summaries.</li>
+            <li><strong>Escalation decision:</strong> recommend routing thresholds by task class and identify what still needs frontier evidence.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Main Results</h3>
+          <ul>
+            <li>The 7B lane remained the best operational default and even scored extremely well across local tasks.</li>
+            <li>The 32B instruct lane became the clearer local reasoning/governance model.</li>
+            <li>The coder 32B lane stayed conditional rather than dominant.</li>
+            <li>The frontier comparison question remained open, which set up Run 4.</li>
+          </ul>
+          <div class="button-row">
+            <a class="button button-secondary" href="../run3/index.html">Run 3 summary page</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Run 4</h2>
+      <p class="section-copy">
+        Run 4 is the most complete benchmark package so far. It directly tested the local-to-frontier escalation boundary using a structured prompt set, saved raw responses, normalized scored outputs, and chart-backed interpretation.
+      </p>
+      <div class="guide-grid">
+        <article class="card">
+          <h3>Models In Scope</h3>
+          <p>Primary local lane: <span class="repo-link">Qwen2.5-7B-Instruct-4bit</span>, <span class="repo-link">Qwen2.5-Coder-32B-Instruct-4bit</span>, <span class="repo-link">Qwen3.5-27B-4bit</span>, and <span class="repo-link">Qwen2.5-32B-Instruct-4bit</span>. Frontier lane: <span class="repo-link">gpt-5.2-codex</span> and <span class="repo-link">gpt-5.4</span>.</p>
+        </article>
+        <article class="card">
+          <h3>Problems Run</h3>
+          <ul>
+            <li><strong>Multi-file engineering repair:</strong> fix harness defects around timing labels, warm-up scoring, blocked summary omissions, and malformed JSON loss.</li>
+            <li><strong>Benchmark integrity helper:</strong> build or repair a bounded helper that validates artifact completeness and score integrity.</li>
+            <li><strong>Partial-failure debugging:</strong> identify contradictions, infer root-cause sequence, preserve evidence, and separate correcting results from rewriting history.</li>
+            <li><strong>Escalation-boundary decision:</strong> recommend when to stay local, escalate to a stronger local specialist, or escalate to frontier.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Main Results</h3>
+          <ul>
+            <li>The 7B lane remained the best local operational default.</li>
+            <li>The coder 32B lane became the strongest local coding specialist.</li>
+            <li>The 32B instruct lane became the strongest local reasoning/governance lane.</li>
+            <li>Frontier produced stronger answers on some tasks, but not enough to justify universal escalation in this run.</li>
+          </ul>
+          <div class="button-row">
+            <a class="button button-primary" href="../run4/index.html">Run 4 review page</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="callout">
+        <h2>What Exists Versus What Is Still Missing</h2>
+        <p class="section-copy">
+          Run 4 already has a curated prompt set, normalized data layer, raw outputs, scored artifacts, and charts. Runs 1 to 3 now have readable narrative summaries, but they do not yet have the same normalized prompt and scoring presentation layer. If this benchmark program continues, the next structural improvement should be a shared cross-run schema rather than more one-off prose.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      Cross-run benchmark catalog for the first four MLX Lab runs. This page is intended for human review and orientation rather than raw evidence capture.
+    </footer>
+  </main>
+</body>
+</html>
