@@ -40,6 +40,14 @@ Current benchmark posture:
 - still bounded to this host, this model set, and these benchmark families
 - not yet promotion-grade evidence for canonical OpenClaw runtime policy
 
+Execution posture for future runs:
+- Run 4 now acts as the reusable benchmark scaffold rather than another one-off script.
+- The runner logic lives in `benchmark_harness/`, while run-specific configuration lives next to each run under `benchmark-runs/.../run_config.json`.
+- New models should usually be added as config entries first, not as new branches inside a copied benchmark script.
+
+Current operator audit:
+- See `docs/notes/model-inventory-audit-2026-04-02.md` for the current model residence and live serving audit versus the documented serving posture.
+
 ---
 
 ## Evidence

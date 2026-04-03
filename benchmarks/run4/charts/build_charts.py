@@ -5,7 +5,7 @@ import math
 from pathlib import Path
 
 
-ROOT = Path("/Users/kermitv/dev/mlx-lab/benchmarks/run4")
+ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 CHARTS_DIR = ROOT / "charts"
 ROWS_CSV = DATA_DIR / "rows.csv"
@@ -152,11 +152,21 @@ def lerp_color(value):
     return "#%02x%02x%02x" % rgb
 
 
+def ordered_unique(values):
+    seen = set()
+    ordered = []
+    for value in values:
+        if value not in seen:
+            seen.add(value)
+            ordered.append(value)
+    return ordered
+
+
 def chart_task_model_heatmap(rows):
-    tasks = ["multi-file-repair", "benchmark-integrity-helper", "partial-failure-debugging", "escalation-boundary-decision"]
-    models = ["Qwen2.5-7B", "Qwen2.5-Coder-32B", "Qwen3.5-27B", "Qwen2.5-32B", "gpt-5.2-codex", "gpt-5.4"]
+    tasks = ordered_unique(row["task"] for row in rows)
+    models = ordered_unique(row["model"] for row in rows)
     lookup = {(r["task"], r["model"]): r for r in rows}
-    cell_w = 150
+    cell_w = max(120, min(150, math.floor((WIDTH - 320) / max(len(models), 1))))
     cell_h = 110
     origin_x = 240
     origin_y = 150
@@ -168,7 +178,9 @@ def chart_task_model_heatmap(rows):
         y = origin_y + r_idx * cell_h + cell_h / 2
         parts.append(f'<text x="{origin_x-18}" y="{y+4:.1f}" text-anchor="end" class="label">{esc(task)}</text>')
         for c, model in enumerate(models):
-            row = lookup[(task, model)]
+            row = lookup.get((task, model))
+            if row is None:
+                continue
             x = origin_x + c * cell_w
             y0 = origin_y + r_idx * cell_h
             fill = lerp_color(row["score_accuracy"])
