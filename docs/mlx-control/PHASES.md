@@ -31,29 +31,47 @@ Scope:
 - define state ownership model
 - define config and health model shapes
 - local unit coverage for the Python surface
+- add validation invariants and ergonomic constructors
+- expose read-only controller methods
+- keep mutation methods as non-runtime stubs only
 
 Success criteria:
 
 - a minimal Python-first control surface exists
 - state ownership is explicit and singular
+- typed contracts define the controller-facing API
+- validation invariants protect core control-module contracts locally
+- ergonomic constructors support the intended Python-first usage
+- read-only controller methods are available without requiring runtime control behavior
+- mutation surfaces exist only as stubs
 - no CLI or service mode is required for core usage
 - tests validate core control-module contracts locally
 
+Status:
+
+- complete
+- runtime/process control is explicitly not implemented in this phase
+
 ## Phase 2
 
-Objective: integrate benchmark consumption of the control module without reversing the dependency direction.
+Objective: plan and design benchmark consumption of the control module without reversing the dependency direction.
 
 Scope:
 
+- Phase 2 integration plan and review baseline
 - benchmark harness reads from `mlx_control`
 - adapter or integration layer as needed
 - benchmark-facing usage patterns validated against the package boundary
+- benchmark integration design that preserves `benchmark_harness -> mlx_control`
+- explicit separation from runtime/process control implementation
 
 Success criteria:
 
+- a reviewed integration plan exists for benchmark adoption
 - benchmark harness consumes `mlx_control` without imports in the reverse direction
 - benchmark-specific concerns remain outside the core module where practical
 - boundary remains small and reviewable
+- runtime/process control remains a separate follow-on concern unless intentionally re-scoped
 
 ## Phase 3
 
