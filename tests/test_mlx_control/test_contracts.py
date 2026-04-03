@@ -136,6 +136,70 @@ def test_default_contracts_do_not_imply_runtime_activity() -> None:
     assert state.health.status is HealthStatus.UNKNOWN
 
 
+def test_ergonomic_constructors_build_stopped_state() -> None:
+    """Stopped helpers should build an inert valid canonical snapshot."""
+
+    state = ControlState.stopped()
+
+    assert state.desired == DesiredState.stopped()
+    assert state.observed == ObservedRuntimeState.stopped()
+    assert state.is_running is False
+    assert state.is_transitioning is False
+    assert state.has_active_model is False
+
+
+def test_ergonomic_constructors_build_running_state() -> None:
+    """Running helpers should build a valid steady-state snapshot."""
+
+    state = ControlState.running(
+        "model-a",
+        display_name="Model A",
+        revision="main",
+        detail="steady",
+    )
+
+    assert state.desired == DesiredState.running("model-a")
+    assert state.observed == ObservedRuntimeState.running("model-a", detail="steady")
+    assert state.active_model == ActiveModelIdentity(
+        model_id="model-a",
+        display_name="Model A",
+        revision="main",
+    )
+    assert state.is_running is True
+    assert state.is_transitioning is False
+    assert state.has_active_model is True
+
+
+def test_observed_runtime_helpers_cover_transition_phases() -> None:
+    """Observed runtime helpers should provide valid common phase shapes."""
+
+    starting = ObservedRuntimeState.starting("model-a", detail="booting")
+    stopping = ObservedRuntimeState.stopping("model-a", detail="draining")
+
+    assert starting.phase is RuntimePhase.STARTING
+    assert starting.active_model_id == "model-a"
+    assert starting.is_transitioning is True
+    assert stopping.phase is RuntimePhase.STOPPING
+    assert stopping.active_model_id == "model-a"
+    assert stopping.is_transitioning is True
+
+
+def test_registry_convenience_helpers_return_filtered_views() -> None:
+    """Registry convenience helpers should improve read-only consumption."""
+
+    registry = ModelRegistryState(
+        models=(
+            ModelRegistrySnapshot(model_id="model-a", ready=True),
+            ModelRegistrySnapshot(model_id="model-b", ready=False),
+        )
+    )
+
+    assert registry.model_ids == ("model-a", "model-b")
+    assert registry.contains("model-a") is True
+    assert registry.contains("missing-model") is False
+    assert registry.ready_models() == (ModelRegistrySnapshot(model_id="model-a", ready=True),)
+
+
 def test_running_desired_state_requires_target_model_id() -> None:
     """A running target posture must name the intended model."""
 

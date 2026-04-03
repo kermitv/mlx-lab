@@ -55,6 +55,18 @@ class DesiredState:
     mode: DesiredControlMode = DesiredControlMode.STOPPED
     target_model_id: Optional[str] = None
 
+    @classmethod
+    def stopped(cls) -> "DesiredState":
+        """Construct the inert desired-state posture."""
+
+        return cls(mode=DesiredControlMode.STOPPED)
+
+    @classmethod
+    def running(cls, model_id: str) -> "DesiredState":
+        """Construct a running desired-state posture for a model."""
+
+        return cls(mode=DesiredControlMode.RUNNING, target_model_id=model_id)
+
     def __post_init__(self) -> None:
         """Validate desired-state invariants without implying runtime behavior."""
 
@@ -80,6 +92,58 @@ class ObservedRuntimeState:
     active_model_id: Optional[str] = None
     detail: Optional[str] = None
 
+    @classmethod
+    def unknown(cls, detail: Optional[str] = None) -> "ObservedRuntimeState":
+        """Construct an unknown observed runtime posture."""
+
+        return cls(phase=RuntimePhase.UNKNOWN, detail=detail)
+
+    @classmethod
+    def stopped(cls, detail: Optional[str] = None) -> "ObservedRuntimeState":
+        """Construct a stopped observed runtime posture."""
+
+        return cls(phase=RuntimePhase.STOPPED, detail=detail)
+
+    @classmethod
+    def starting(
+        cls, model_id: Optional[str] = None, detail: Optional[str] = None
+    ) -> "ObservedRuntimeState":
+        """Construct a transitional starting runtime posture."""
+
+        return cls(
+            phase=RuntimePhase.STARTING,
+            active_model_id=model_id,
+            detail=detail,
+        )
+
+    @classmethod
+    def running(cls, model_id: str, detail: Optional[str] = None) -> "ObservedRuntimeState":
+        """Construct a running observed runtime posture."""
+
+        return cls(
+            phase=RuntimePhase.RUNNING,
+            active_model_id=model_id,
+            detail=detail,
+        )
+
+    @classmethod
+    def stopping(
+        cls, model_id: Optional[str] = None, detail: Optional[str] = None
+    ) -> "ObservedRuntimeState":
+        """Construct a transitional stopping runtime posture."""
+
+        return cls(
+            phase=RuntimePhase.STOPPING,
+            active_model_id=model_id,
+            detail=detail,
+        )
+
+    @property
+    def is_transitioning(self) -> bool:
+        """Return whether the observed runtime is in a transition phase."""
+
+        return self.phase in (RuntimePhase.STARTING, RuntimePhase.STOPPING)
+
     def __post_init__(self) -> None:
         """Validate observed runtime-state shape as raw observation data."""
 
@@ -102,6 +166,70 @@ class ControlState:
     health: HealthSummary = field(default_factory=HealthSummary)
     registry: ModelRegistryState = field(default_factory=ModelRegistryState)
     config: ControlConfig = field(default_factory=ControlConfig)
+
+    @classmethod
+    def stopped(
+        cls,
+        *,
+        health: Optional[HealthSummary] = None,
+        registry: Optional[ModelRegistryState] = None,
+        config: Optional[ControlConfig] = None,
+    ) -> "ControlState":
+        """Construct an inert canonical stopped control state."""
+
+        return cls(
+            desired=DesiredState.stopped(),
+            observed=ObservedRuntimeState.stopped(),
+            health=health or HealthSummary(),
+            registry=registry or ModelRegistryState(),
+            config=config or ControlConfig(),
+        )
+
+    @classmethod
+    def running(
+        cls,
+        model_id: str,
+        *,
+        display_name: Optional[str] = None,
+        revision: Optional[str] = None,
+        health: Optional[HealthSummary] = None,
+        registry: Optional[ModelRegistryState] = None,
+        config: Optional[ControlConfig] = None,
+        detail: Optional[str] = None,
+    ) -> "ControlState":
+        """Construct a steady-state running control snapshot."""
+
+        active_model = ActiveModelIdentity(
+            model_id=model_id,
+            display_name=display_name,
+            revision=revision,
+        )
+        return cls(
+            desired=DesiredState.running(model_id),
+            observed=ObservedRuntimeState.running(model_id=model_id, detail=detail),
+            active_model=active_model,
+            health=health or HealthSummary(),
+            registry=registry or ModelRegistryState(),
+            config=config or ControlConfig(),
+        )
+
+    @property
+    def is_running(self) -> bool:
+        """Return whether the canonical state is in steady running posture."""
+
+        return self.observed.phase is RuntimePhase.RUNNING
+
+    @property
+    def is_transitioning(self) -> bool:
+        """Return whether the observed runtime is in a transition phase."""
+
+        return self.observed.is_transitioning
+
+    @property
+    def has_active_model(self) -> bool:
+        """Return whether a canonical active model identity is present."""
+
+        return self.active_model is not None
 
     def __post_init__(self) -> None:
         """Validate canonical relationships across controller-visible state."""
