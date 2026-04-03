@@ -1,11 +1,19 @@
-"""Phase 0 config placeholder for the internal ``mlx_control`` module.
+"""Configuration contracts for the internal ``mlx_control`` module."""
 
-This module is reserved for future configuration shapes that support the
-controller and state model without introducing CLI or subprocess behavior.
-"""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Dict, Optional
 
 
+@dataclass(frozen=True)
 class ControlConfig:
-    """Placeholder for future configuration concerns."""
+    """Python-first configuration shape for controller and state contracts.
 
-    pass
+    The configuration is intentionally small and transportable so the package
+    remains extraction-safe and free of CLI or process-launch assumptions.
+    """
+
+    default_model_id: Optional[str] = None
+    health_checks_enabled: bool = True
+    metadata: Dict[str, str] = field(default_factory=dict)
