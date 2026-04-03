@@ -6,6 +6,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional, Tuple
 
+from .exceptions import ControlHealthError
+
 
 class HealthStatus(str, Enum):
     """Normalized health status for local control summaries."""
@@ -24,6 +26,12 @@ class HealthCheck:
     status: HealthStatus
     detail: Optional[str] = None
 
+    def __post_init__(self) -> None:
+        """Validate minimal health-check shape constraints."""
+
+        if not self.name.strip():
+            raise ControlHealthError("health check name must be a non-empty string")
+
 
 @dataclass(frozen=True)
 class HealthSummary:
@@ -32,3 +40,17 @@ class HealthSummary:
     status: HealthStatus = HealthStatus.UNKNOWN
     summary: str = "health unknown"
     checks: Tuple[HealthCheck, ...] = field(default_factory=tuple)
+
+    def __post_init__(self) -> None:
+        """Validate summarized health contract coherence."""
+
+        if not self.summary.strip():
+            raise ControlHealthError("health summary must be a non-empty string")
+
+        if self.status is HealthStatus.HEALTHY:
+            invalid_checks = [check.name for check in self.checks if check.status is not HealthStatus.HEALTHY]
+            if invalid_checks:
+                raise ControlHealthError(
+                    "healthy summary cannot contain non-healthy checks: "
+                    + ", ".join(invalid_checks)
+                )

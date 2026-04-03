@@ -9,10 +9,13 @@ import pytest
 from mlx_control import (
     ActiveModelIdentity,
     ControlConfig,
+    ControlConfigError,
     ControlState,
+    ControlStateError,
     DesiredControlMode,
     DesiredState,
     HealthCheck,
+    ControlHealthError,
     HealthStatus,
     HealthSummary,
     MLXController,
@@ -131,3 +134,127 @@ def test_default_contracts_do_not_imply_runtime_activity() -> None:
     assert state.active_model is None
     assert state.registry.models == ()
     assert state.health.status is HealthStatus.UNKNOWN
+
+
+def test_running_desired_state_requires_target_model_id() -> None:
+    """A running target posture must name the intended model."""
+
+    with pytest.raises(ControlStateError):
+        DesiredState(mode=DesiredControlMode.RUNNING)
+
+
+def test_stopped_desired_state_rejects_target_model_id() -> None:
+    """Stopped desired posture should not imply an active target model."""
+
+    with pytest.raises(ControlStateError):
+        DesiredState(
+            mode=DesiredControlMode.STOPPED,
+            target_model_id="model-a",
+        )
+
+
+def test_observed_stopped_state_rejects_active_model_id() -> None:
+    """Stopped or unknown observations should not report an active runtime id."""
+
+    with pytest.raises(ControlStateError):
+        ObservedRuntimeState(
+            phase=RuntimePhase.STOPPED,
+            active_model_id="model-a",
+        )
+
+
+def test_running_observation_requires_canonical_active_model_alignment() -> None:
+    """Running state requires canonical and observed active identities to agree."""
+
+    with pytest.raises(ControlStateError):
+        ControlState(
+            desired=DesiredState(
+                mode=DesiredControlMode.RUNNING,
+                target_model_id="model-a",
+            ),
+            observed=ObservedRuntimeState(
+                phase=RuntimePhase.RUNNING,
+                active_model_id="model-a",
+            ),
+        )
+
+    with pytest.raises(ControlStateError):
+        ControlState(
+            desired=DesiredState(
+                mode=DesiredControlMode.RUNNING,
+                target_model_id="model-a",
+            ),
+            observed=ObservedRuntimeState(
+                phase=RuntimePhase.RUNNING,
+                active_model_id="model-b",
+            ),
+            active_model=ActiveModelIdentity(model_id="model-a"),
+        )
+
+
+def test_running_state_allows_transitional_divergence_outside_running_phase() -> None:
+    """Observed runtime data may diverge from canonical identity during transitions."""
+
+    state = ControlState(
+        desired=DesiredState(
+            mode=DesiredControlMode.RUNNING,
+            target_model_id="model-a",
+        ),
+        observed=ObservedRuntimeState(
+            phase=RuntimePhase.STARTING,
+            active_model_id="model-b",
+        ),
+        active_model=ActiveModelIdentity(model_id="model-a"),
+    )
+
+    assert state.active_model.model_id == "model-a"
+    assert state.observed.active_model_id == "model-b"
+
+
+def test_running_state_requires_desired_and_canonical_alignment() -> None:
+    """Steady running state should not split desired and canonical identities."""
+
+    with pytest.raises(ControlStateError):
+        ControlState(
+            desired=DesiredState(
+                mode=DesiredControlMode.RUNNING,
+                target_model_id="model-a",
+            ),
+            observed=ObservedRuntimeState(
+                phase=RuntimePhase.RUNNING,
+                active_model_id="model-b",
+            ),
+            active_model=ActiveModelIdentity(model_id="model-b"),
+        )
+
+
+def test_config_validation_rejects_blank_values() -> None:
+    """Configuration validation should reject blank identifiers and metadata."""
+
+    with pytest.raises(ControlConfigError):
+        ControlConfig(default_model_id="  ")
+
+    with pytest.raises(ControlConfigError):
+        ControlConfig(metadata={"": "value"})
+
+    with pytest.raises(ControlConfigError):
+        ControlConfig(metadata={"owner": " "})
+
+
+def test_health_validation_rejects_inconsistent_summary() -> None:
+    """Health summaries should not claim healthy while containing bad checks."""
+
+    with pytest.raises(ControlHealthError):
+        HealthCheck(name="  ", status=HealthStatus.HEALTHY)
+
+    with pytest.raises(ControlHealthError):
+        HealthSummary(
+            status=HealthStatus.HEALTHY,
+            summary="healthy",
+            checks=(
+                HealthCheck(
+                    name="runtime",
+                    status=HealthStatus.DEGRADED,
+                ),
+            ),
+        )
