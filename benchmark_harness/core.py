@@ -10,6 +10,21 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Optional
 
+from benchmark_harness.integrations.mlx_control import (
+    BenchmarkPreflightInterpretation,
+    BenchmarkPreflightView,
+    build_preflight_view,
+    interpret_preflight,
+)
+from mlx_control import (
+    ControlState,
+    HealthStatus,
+    HealthSummary,
+    MLXController,
+    ModelRegistrySnapshot,
+    ModelRegistryState,
+)
+
 
 OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions"
 OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses"
@@ -126,6 +141,40 @@ class BenchmarkRunner:
     def save_json(self, path: Path, obj: Any) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(obj, indent=2, ensure_ascii=True) + "\n", encoding="utf-8")
+
+    def evaluate_local_model_preflight(
+        self,
+        local_specs: list[ModelSpec],
+        local_models_response: dict[str, Any],
+    ) -> tuple[BenchmarkPreflightView, dict[str, BenchmarkPreflightInterpretation]]:
+        """Interpret one local-model visibility response through the MCM adapter."""
+
+        registry = ModelRegistryState(
+            models=tuple(
+                ModelRegistrySnapshot(
+                    model_id=item["id"],
+                    display_name=item.get("id"),
+                    ready=True,
+                )
+                for item in local_models_response.get("data", [])
+                if item.get("id")
+            )
+        )
+        controller = MLXController(
+            state=ControlState.stopped(
+                health=HealthSummary(
+                    status=HealthStatus.HEALTHY,
+                    summary="%s/models responded" % self.config.local_endpoint,
+                ),
+                registry=registry,
+            )
+        )
+        view = build_preflight_view(controller)
+        interpretations = {
+            model.id: interpret_preflight(view, requested_model_id=model.id)
+            for model in local_specs
+        }
+        return view, interpretations
 
     def http_json(self, url: str, payload: Any = None, timeout: int = 300, headers: Optional[dict[str, str]] = None) -> Any:
         req_headers = dict(headers or {})
@@ -605,13 +654,24 @@ class BenchmarkRunner:
 
         local_models_response = self.http_json(self.config.local_endpoint + "/models", timeout=60)
         self.save_json(self.paths.local_connectivity_path, local_models_response)
-        visible_local_models = [item["id"] for item in local_models_response.get("data", [])]
-        available_local_models = [model for model in local_specs if model.id in visible_local_models]
-        missing_primary = [model.id for model in local_specs if model.required and model.id not in visible_local_models]
+        local_preflight_view, local_preflight = self.evaluate_local_model_preflight(
+            local_specs,
+            local_models_response,
+        )
+        visible_local_models = [model.model_id for model in local_preflight_view.registered_models]
+        available_local_models = [
+            model for model in local_specs if local_preflight[model.id].requested_model_registered
+        ]
+        missing_primary = [
+            model.id
+            for model in local_specs
+            if model.required and not local_preflight[model.id].requested_model_ready
+        ]
         state["connectivity"] = [
             "local endpoint ok: %s/models responded" % self.config.local_endpoint,
             "visible local models: %s" % ", ".join(visible_local_models),
             "available benchmarked local models: %s" % ", ".join(model.id for model in available_local_models),
+            "mlx_control preflight health acceptable: %s" % local_preflight_view.is_health_acceptable(),
         ]
         if missing_primary:
             state["connectivity"].append("missing required local models: %s" % ", ".join(missing_primary))
