@@ -4,7 +4,9 @@
 
 `mlx_control` is the internal control-plane package for MLX lifecycle coordination inside this repository.
 
-In Phase 0, the boundary is documentation and scaffold only. Future runtime work should remain inside `src/mlx_control/` unless there is a clear reason to place repository-specific adapters elsewhere.
+Phase 1 established typed contracts, validation invariants, ergonomic constructors, read-only controller methods, and mutation stubs only.
+
+Future runtime work should remain inside `src/mlx_control/` unless there is a clear reason to place repository-specific adapters elsewhere.
 
 ## Dependency Direction
 
@@ -25,7 +27,7 @@ Not allowed:
 - `health.py`: health model and future health-check surface
 - `registry.py`: model and resource registration abstractions
 - `config.py`: control-module configuration model and loading posture
-- `__init__.py`: package marker only in Phase 0
+- `__init__.py`: package export surface for Phase 1 contracts
 
 ## State Ownership
 
@@ -59,6 +61,126 @@ Likely future interfaces, in order:
 - optional external tool adapters
 
 Only the Python API is part of the intended early baseline. All other interfaces are deferred until later phases.
+
+## Phase 3A Local Tool Pattern
+
+Recommended Phase 3A pattern: prove one repo-local, read-only tool consumer before adopting larger local clients.
+
+Approved sequencing:
+
+- first controlled local consumer: repo-local CLI utility
+- likely second adopter: OpenCode, after the repo-local CLI boundary is proven
+- explicitly deferred adopter: OpenClaw, due to higher blast radius and stronger risk of state fragmentation
+
+Recommended dependency direction:
+
+`tools/mlx_control_cli.py -> tools/integrations/mlx_control.py -> mlx_control`
+
+The first Phase 3A surface should stay narrow:
+
+- command surface: `mlx-control status`
+- read-only consumption of `MLXController`
+- no subprocess behavior
+- no runtime/process control
+- no service semantics
+
+This keeps the first tool integration repository-local, auditable, and small enough to validate the adapter pattern before larger external-tool adoption.
+
+## Phase 3B OpenCode Pattern
+
+Recommended Phase 3B pattern: adopt OpenCode as the next controlled consumer only through a thin repo-local adapter that composes `mlx_control`.
+
+Approved sequencing:
+
+- next controlled adopter: OpenCode
+- explicitly deferred comparison point: OpenClaw
+
+Recommended placement:
+
+- `tools/integrations/opencode_mlx_control.py`
+
+Required dependency direction:
+
+`OpenCode-facing repo glue -> tools/integrations/opencode_mlx_control.py -> mlx_control`
+
+The first Phase 3B slice should stay narrow:
+
+- read-only OpenCode-facing status/readiness adapter
+- consume `MLXController`
+- no peeking into `mlx_control.state`
+- no second local state source
+- no provider switching
+- no endpoint probing
+- no subprocess behavior
+- no runtime/process control
+
+This keeps OpenCode adoption aligned with the proven tool boundary without letting a second client redefine control-state ownership.
+
+## Phase 2 Integration Pattern
+
+Recommended pattern: a downstream benchmark adapter layer that composes `mlx_control` from the benchmark side rather than extending `mlx_control` with benchmark concepts.
+
+The benchmark harness should treat `mlx_control` as a control-plane dependency with a small read-oriented interface:
+
+- construct or receive an `MLXController`
+- read canonical state through controller methods such as `status()`, `active_model()`, `health()`, and `list_models()`
+- translate those benchmark-neutral control views into benchmark decisions, readiness checks, and run-time operator messaging outside `mlx_control`
+
+This keeps the dependency direction one-way:
+
+`benchmark_harness -> benchmark_harness.integrations.mlx_control -> mlx_control`
+
+The integration layer should be thin and repository-local. It is an adapter for benchmark consumption, not a new control-plane home.
+
+## Recommended Adapter Placement
+
+Recommended file and module placement for Phase 2:
+
+- `benchmark_harness/integrations/__init__.py`
+- `benchmark_harness/integrations/mlx_control.py`
+
+Why this placement:
+
+- keeps benchmark-specific translation code in the benchmark package
+- avoids naming confusion with benchmark model adapters already represented in harness config
+- preserves `src/mlx_control/` as benchmark-neutral and extraction-safe
+- allows the harness to evolve integration helpers without reshaping the core control module
+
+If multiple benchmark-specific files are eventually needed, they should stay under `benchmark_harness/integrations/mlx_control/` rather than expanding `src/mlx_control/` with benchmark concerns.
+
+## Responsibilities That Stay Inside `mlx_control`
+
+- canonical control-state ownership
+- typed control contracts and validation invariants
+- benchmark-neutral controller inspection methods
+- benchmark-neutral config, registry, state, and health models
+- future runtime/process control semantics when that work is explicitly in scope
+- invariant enforcement around control-module state transitions
+
+## Responsibilities That Stay Outside `mlx_control`
+
+- benchmark run configuration parsing
+- benchmark lane selection, scoring, and escalation policy
+- benchmark-specific readiness thresholds and skip rules
+- run artifact layout, logging, CSV generation, and summary generation
+- benchmark-oriented operator messaging
+- repository-local adapter glue that maps benchmark inputs onto `mlx_control` consumption
+- any subprocess, shell, or endpoint probing behavior currently owned by the harness
+
+## Anti-Patterns To Avoid
+
+- adding `benchmark_harness` imports anywhere under `src/mlx_control/`
+- teaching `mlx_control` about run directories, score files, benchmark task kinds, or benchmark lanes
+- reshaping core control contracts around benchmark-only convenience fields
+- letting the harness reach into `mlx_control.state` internals when controller methods should be the boundary
+- placing benchmark integration code under `src/mlx_control/` just because it is the first consumer
+- coupling benchmark integration design to runtime/process control implementation
+- introducing subprocess or service management behavior under the banner of Phase 2 integration
+- teaching `mlx_control` about CLI presentation concerns for Phase 3A convenience
+- letting a first local tool consumer create a second state owner outside `mlx_control`
+- jumping to OpenClaw integration before the smaller repo-local CLI boundary is proven
+- letting OpenCode-facing code infer readiness from its own local heuristics instead of `MLXController`
+- using OpenCode integration as a back door for provider switching or live runtime probing
 
 ## Benchmark Separation Rule
 

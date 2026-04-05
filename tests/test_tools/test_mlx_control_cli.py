@@ -143,6 +143,7 @@ def test_cli_status_command_renders_default_inert_snapshot() -> None:
     assert "Health: unknown (health unknown)" in rendered
     assert "Registered models: none" in rendered
     assert "Ready models: none" in rendered
+    assert "OpenCode local-provider readiness: not_ready" in rendered
 
 
 def test_cli_status_command_accepts_injected_controller() -> None:
@@ -170,6 +171,7 @@ def test_cli_status_command_accepts_injected_controller() -> None:
     assert "Health: unknown (runtime not implemented)" in rendered
     assert "Registered models: model-a (ready)" in rendered
     assert "Ready models: model-a (ready)" in rendered
+    assert "OpenCode local-provider readiness: not_ready" in rendered
 
 
 def test_load_controller_from_connectivity_artifact_builds_real_snapshot() -> None:
@@ -261,3 +263,4 @@ def test_cli_status_command_supports_repo_local_connectivity_path() -> None:
     assert "Health: healthy (loaded from " in rendered
     assert "Registered models: model-a (ready), model-b (ready)" in rendered
     assert "Ready models: model-a (ready), model-b (ready)" in rendered
+    assert "OpenCode local-provider readiness: ready" in rendered

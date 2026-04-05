@@ -13,6 +13,10 @@ from tools.integrations.mlx_control import (
     load_controller_from_repo_local_context,
     render_status_view,
 )
+from tools.integrations.opencode_mlx_control import (
+    build_opencode_status_view,
+    render_opencode_readiness,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -43,7 +47,11 @@ def main(
     )
 
     if args.command == "status":
-        print(render_status_view(build_status_view(active_controller)), end="")
+        status_view = build_status_view(active_controller)
+        opencode_view = build_opencode_status_view(active_controller)
+        output = render_status_view(status_view)
+        output += render_opencode_readiness(opencode_view) + "\n"
+        print(output, end="")
         return 0
 
     raise ValueError("unsupported command %s" % args.command)
