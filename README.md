@@ -300,3 +300,7 @@ Done:
 - Add a small GitHub Pages narrative surface for the benchmark program if the Run 4 dashboard proves useful for ongoing review
 - Expand the benchmark series with repeated-run stability checks, better memory observability, and harder multi-file repair tasks
 - Keep current mlx-lab routing guidance clearly separated from any future OpenClaw runtime-policy promotion
+
+---
+
+**Note: This repository is currently undergoing a major architectural transition from MLX to the Ollama/Gemma 4 ecosystem. See [docs/migration/current-state-and-roadmap.md](./docs/migration/current-state-and-roadmap.md) for the full strategic plan and roadmap.
