@@ -2,6 +2,33 @@
 
 This guide describes the professional-grade method for managing the Ollama inference engine on macOS using `launchd`. By using a Launch Daemon, we ensure the engine is a persistent, system-level service that is resilient to reboots and easy to manage.
 
+## Homebrew Install Note
+
+When `brew install ollama` completes on macOS, Homebrew prints the following service-start guidance:
+
+```bash
+To start ollama now and restart at login:
+  brew services start ollama
+Or, if you don't want/need a background service you can just run:
+  OLLAMA_FLASH_ATTENTION="1" OLLAMA_KV_CACHE_TYPE="q8_0" /opt/homebrew/opt/ollama/bin/ollama serve
+```
+
+Recorded host-specific choice:
+
+- On a MacBook Pro M1 setup, the selected startup path was `brew services start ollama`.
+
+Observed result on that machine:
+
+```bash
+kermitv@Kermits-MacBook-Pro ~ % brew services start ollama
+==> Successfully started `ollama` (label: homebrew.mxcl.ollama)
+kermitv@Kermits-MacBook-Pro ~ %
+```
+
+Implication:
+
+- For that machine, Ollama was intentionally run as a Homebrew-managed background service rather than as a foreground `ollama serve` process.
+
 ## 🏗️ The Architectural Blueprint
 
 The architecture consists of three layers:
