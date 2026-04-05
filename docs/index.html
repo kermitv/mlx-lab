@@ -3,130 +3,93 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MLX Lab Benchmark Program</title>
+  <title>MLX Lab | Project Dashboard</title>
   <link rel="stylesheet" href="./assets/site.css">
+  <style>
+    .status-banner { background: #ffeb3b; color: #000; padding: 5px 15px; font-size: 0.85rem; font-weight: bold; text-align: center; }
+    .hero-compact { padding: 2rem 1rem; }
+    .metric-card { border-left: 4px solid #333; padding-left: 15px; }
+    .model-tag { font-family: monospace; background: #eee; padding: 2px 5px; border-radius: 3px; font-size: 0.9em; }
+  </style>
 </head>
 <body>
+  <div class="status-banner">
+    ⚠️ ACTIVE MIGRATION: Transitioning from MLX/Qwen to Ollama/Gemma 4 
+    <a href="./docs/migration/current-state-and-roadmap.md" style="margin-left:15px; color: #000;">[View Roadmap]</a>
+  </div>
   <main class="page">
     <nav class="nav">
-      <a class="nav-home" href="./index.html">MLX Lab Benchmark Program</a>
+      <a class="nav-home" href="./index.html">MLX Lab Dashboard</a>
       <div class="nav-links">
-        <a href="./runs/index.html">Benchmark catalog</a>
-        <a href="./run4/index.html">Run 4 review</a>
-        <a href="https://github.com/kermitv/mlx-lab">GitHub repo</a>
+        <a href="./runs/index.html">Benchmarks</a>
+        <a href="./run4/index.html">Run 4 Archive</a>
+        <a href="https://github.com/kermitv/mlx-lab">GitHub</a>
       </div>
     </nav>
 
-    <section class="hero">
-      <p class="eyebrow">Narrative Surface</p>
-      <h1>Local MLX Benchmarking as a Routing Study</h1>
+    <section class="hero hero-compact">
+      <p class="eyebrow">Project Status: Transitioning</p>
+      <h1 style="margin:0;">Local Inference Research & Routing</h1>
       <p class="lede">
-        This site is the presentation layer for benchmark work in <span class="repo-link">mlx-lab</span>. The repo remains the source of truth for prompts, evidence, scoring, and scripts; this Pages surface exists to explain the benchmark story and make the current results easier to review.
+        Documenting the evolution of local-first AI: from MLX-based routing to the <strong>Ollama + OpenCode.ai</strong> ecosystem.
       </p>
-      <div class="button-row">
-        <a class="button button-primary" href="./run4/index.html">Open Run 4 review</a>
-        <a class="button button-secondary" href="./runs/index.html">Open benchmark catalog</a>
-        <a class="button button-secondary" href="https://github.com/kermitv/mlx-lab">Browse the repo</a>
-      </div>
     </section>
 
     <section class="section">
-      <h2>What This Work Is Actually For</h2>
-      <p class="section-copy">
-        The benchmark line started as a local viability check, then became a more useful question: when is fast local good enough, when should work escalate to a stronger local specialist, and when does frontier quality justify the additional cost, latency, and dependency?
-      </p>
+      <h2 style="font-size: 1.2rem;">CORE MISSION</h2>
       <div class="story-grid">
-        <article class="card">
-          <h3>Repo-first Evidence</h3>
-          <p>The benchmark artifacts, raw responses, scoring tables, and execution traces stay in the repository. That keeps the evidence inspectable and versioned.</p>
+        <article class="card metric-card">
+          <h3>Evidence</h3>
+          <p>Version-controlled prompts, scoring, and traces.</p>
+        </callout>
+        <article class="card metric-card">
+          <h3>Narrative</h3>
+          <p>High-level research summaries and comparative runs.</p>
         </article>
-        <article class="card">
-          <h3>Pages-first Narrative</h3>
-          <p>This site is intentionally lighter-weight. It surfaces the story across runs, shows the charts, and points back into the repo when you need proof rather than prose.</p>
-        </article>
-        <article class="card">
-          <h3>Bounded Claims</h3>
-          <p>Current conclusions are useful for <span class="repo-link">mlx-lab</span> operations. They are not yet canonical runtime policy and they should not be read that way.</p>
+        <article class="card metric-card">
+          <h3>Policy</h3>
+          <p>Defining canonical runtime and model inventory.</p>
         </article>
       </div>
     </section>
 
     <section class="section">
-      <h2>Run Progression</h2>
-      <p class="section-copy">
-        The first four runs form a coherent sequence. Each run narrowed the question and improved the quality of the routing interpretation rather than just rerunning the same benchmark with different models.
-      </p>
+      <h2 style="font-size: 1.2rem;">ACTIVE RUN PROGRESSION</h2>
       <div class="run-grid">
         <article class="card run-card">
-          <h3>Run 1</h3>
-          <p>Established baseline local viability and showed that the fast 7B lane was already useful on this node.</p>
-          <div class="button-row">
-            <a class="button button-secondary" href="./run1/index.html">View Run 1</a>
-          </div>
-        </article>
-        <article class="card run-card">
-          <h3>Run 2</h3>
-          <p>Shifted from a one-winner framing toward routing by use case, separating operational default from stronger reasoning and coding roles.</p>
-          <div class="button-row">
-            <a class="button button-secondary" href="./run2/index.html">View Run 2</a>
-          </div>
-        </article>
-        <article class="card run-card">
-          <h3>Run 3</h3>
-          <p>Sharpened local escalation thresholds by task class, even though frontier access was unavailable in that run.</p>
-          <div class="button-row">
-            <a class="button button-secondary" href="./run3/index.html">View Run 3</a>
-          </div>
-        </article>
+          <h3>Run 1-3</h3>
+          <p>Baseline viability and routing studies.</p>
+        </card>
         <article class="card run-card featured">
-          <h3>Run 4</h3>
-          <p>Tested the local-to-frontier escalation boundary directly and produced the strongest current routing story in this repo.</p>
-          <div class="button-row">
-            <a class="button button-primary" href="./run4/index.html">View Run 4</a>
-          </div>
-        </article>
+          <h3>Run 4 (Archive)</h3>
+          <p>MLX/Qwen Frontier boundary testing.</p>
+          <a class="button button-primary" href="./run4/index.html">Review Archive</a>
+        </card>
+        <article class="card run-card">
+          <h3>Run 5 (Upcoming)</h3>
+          <p>Ollama/Gemma 4 vs MLX comparison.</p>
+        </card>
       </div>
     </section>
 
     <section class="section">
-      <h2>Current Routing Story</h2>
+      <h2 style="font-size: 1.2rem;">CURRENT ROUTING ARCHITECTURE</h2>
       <div class="insights">
         <article class="card">
-          <h3>Fast Local Default</h3>
-          <p><span class="repo-link">Qwen2.5-7B-Instruct-4bit</span> remains the best unattended default for bounded work in this host context.</p>
+          <h3>Fast Default</h3>
+          <p><span class="model-tag">Qwen2.5-7B</span> (MLX Legacy)</p>
         </article>
         <article class="card">
-          <h3>Local Coding Specialist</h3>
-          <p><span class="repo-link">Qwen2.5-Coder-32B-Instruct-4bit</span> justifies escalation for harder multi-file coding and repair tasks.</p>
-        </article>
-        <article class="card">
-          <h3>Local Reasoning Lane</h3>
-          <p><span class="repo-link">Qwen2.5-32B-Instruct-4bit</span> is the stronger local choice for contradiction-heavy reasoning and governance-style work.</p>
-        </article>
-        <article class="card">
-          <h3>Frontier Boundary</h3>
-          <p>Frontier answered some tasks better, but Run 4 did not support a universal “always escalate” rule.</p>
+          <h3>Target Specialist</h3>
+          <p><span class="model-tag">gemma4:26b</span> (Ollama Target)</p>
         </article>
       </div>
     </section>
 
-    <section class="section">
-      <div class="callout">
-        <h2>Where To Go Next</h2>
-        <p class="section-copy">
-          Start with the Run 4 review if you want the clearest current benchmark result. Use the GitHub repo when you need the underlying evidence or want to inspect the benchmark artifacts directly.
-        </p>
-        <div class="button-row">
-          <a class="button button-primary" href="./run4/index.html">Open Run 4 review</a>
-          <a class="button button-secondary" href="./runs/index.html">Open benchmark catalog</a>
-          <a class="button button-secondary" href="https://github.com/kermitv/mlx-lab/tree/master/benchmarks/run4">Open Run 4 artifact in GitHub</a>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      Static site, no framework, no runtime JavaScript. This is a narrative layer over repository-backed benchmark evidence.
+    <footer style="margin-top: 40px; opacity: 0.7; font-size: 0.8rem;">
+      MLX Lab | Research-driven documentation for local-first inference.
     </footer>
   </main>
 </body>
 </html>
+
