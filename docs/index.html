@@ -3,93 +3,143 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MLX Lab | Project Dashboard</title>
+  <title>MLX Lab | Research Portal</title>
   <link rel="stylesheet" href="./assets/site.css">
   <style>
-    .status-banner { background: #ffeb3b; color: #000; padding: 5px 15px; font-size: 0.85rem; font-weight: bold; text-align: center; }
-    .hero-compact { padding: 2rem 1rem; }
-    .metric-card { border-left: 4px solid #333; padding-left: 15px; }
-    .model-tag { font-family: monospace; background: #eee; padding: 2px 5px; border-radius: 3px; font-size: 0.9em; }
+    :root {
+      --accent-color: #2563eb; /* Professional Blue */
+      --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+    }
+  
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.5; color: #1f2937; }
+  
+    /* Status Ribbon */
+    .status-ribbon {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 6px 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-dot { height: 8px; width: 8px; background-color: #10b981; border-radius: 50%; display: inline-scale; }
+  
+    /* Hero Section */
+    .hero-dashboard { padding: 3rem 2rem; border-bottom: 1px solid #e5e7eb; background: #ffffff; }
+    .hero-dashboard h1 { font-size: 2.25rem; font-weight: 800; margin: 0 0 0.5rem 0; letter-spacing: -0.025em; color: #111827; }
+    .hero-dashboard .mission-statement { font-size: 1.125rem; color: #4b5563; max-width: 800px; }
+  
+    /* Comparison Table */
+    .comparison-container { padding: 2rem; max-width: 1000px; margin: 0 auto; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin-top: 1rem; text-align: left; }
+    .comparison-table th, .comparison-table td { padding: 12px 16px; border-bottom: 1px solid #e5e7eb; }
+    .comparison-table th { font-size: 0.875rem; text-transform: uppercase; color: #6b7280; font-weight: 600; }
+    .comparison-table tr:hover { background: #f9fafb; }
+    .comparison-table .axis-name { font-weight: 600; color: #111827; }
+    .comparison-table .diff-up { color: #059669; font-weight: 600; }
+    .comparison-table .diff-down { color: #dc2626; font-weight: 600; }
+    .comparison-table .model-id { font-family: var(--font-mono); background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+  
+    /* Artifact Grid */
+    .artifact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; padding: 2rem; }
+    .artifact-card { border: 1px solid #e5e7eb; padding: 1.5rem; border-radius: 8px; transition: transform 0.2s; text-decoration: none; color: inherit; }
+    .artifact-card:hover { transform: translateY(-4px); border-color: var(--accent-color); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    .artifact-card h3 { margin: 0 0 0.5rem 0; font-size: 1.125rem; color: var(--accent_color); }
+    .artifact-card p { margin: 0; font-size: 0.875rem; color: #6b7280; }
+  
+    .footer { padding: 3rem 2rem; text-align: center; font-size: 0.875rem; color: #9ca3af; border-top: 1px solid #e5e7eb; }
   </style>
 </head>
 <body>
-  <div class="status-banner">
-    ⚠️ ACTIVE MIGRATION: Transitioning from MLX/Qwen to Ollama/Gemma 4 
-    <a href="./docs/migration/current-state-and-roadmap.md" style="margin-left:15px; color: #000;">[View Roadmap]</a>
+  <div class="status-ribbon">
+    <span class="status-dot"></span>
+    Evolving Infrastructure: Transitioning to <span class="model-id">Ollama</span> + <span class="model-id">Gemma 4</span>
   </div>
-  <main class="page">
-    <nav class="nav">
-      <a class="nav-home" href="./index.html">MLX Lab Dashboard</a>
-      <div class="nav-links">
-        <a href="./runs/index.html">Benchmarks</a>
-        <a href="./run4/index.html">Run 4 Archive</a>
-        <a href="https://github.com/kermitv/mlx-lab">GitHub</a>
-      </div>
-    </nav>
-
-    <section class="hero hero-compact">
-      <p class="eyebrow">Project Status: Transitioning</p>
-      <h1 style="margin:0;">Local Inference Research & Routing</h1>
-      <p class="lede">
-        Documenting the evolution of local-first AI: from MLX-based routing to the <strong>Ollama + OpenCode.ai</strong> ecosystem.
-      </p>
-    </section>
-
-    <section class="section">
-      <h2 style="font-size: 1.2rem;">CORE MISSION</h2>
-      <div class="story-grid">
-        <article class="card metric-card">
-          <h3>Evidence</h3>
-          <p>Version-controlled prompts, scoring, and traces.</p>
-        </callout>
-        <article class="card metric-card">
-          <h3>Narrative</h3>
-          <p>High-level research summaries and comparative runs.</p>
-        </article>
-        <article class="card metric-card">
-          <h3>Policy</h3>
-          <p>Defining canonical runtime and model inventory.</p>
-        </article>
+  
+  <main>
+    <section class="hero-dashboard">
+      <div class="container">
+        <h1>MLX Lab Research Portal</h1>
+        <p class="mission-statement">
+          A high-density experimental environment for validating local-first inference architectures and automated agentic orchestration.
+        </p>
+        <div class="nav-links" style="margin-top: 1.5rem;">
+          <a href="./runs/index.html" style="margin-right: 20px;">Benchmark Catalog</a>
+          <a href="./run4/index.html">Run 4 Archive</a>
+        </div>
       </div>
     </section>
-
-    <section class="section">
-      <h2 style="font-size: 1.2rem;">ACTIVE RUN PROGRESSION</h2>
-      <div class="run-grid">
-        <article class="card run-card">
-          <h3>Run 1-3</h3>
-          <p>Baseline viability and routing studies.</p>
-        </card>
-        <article class="card run-card featured">
-          <h3>Run 4 (Archive)</h3>
-          <p>MLX/Qwen Frontier boundary testing.</p>
-          <a class="button button-primary" href="./run4/index.html">Review Archive</a>
-        </card>
-        <article class="card run-card">
-          <h3>Run 5 (Upcoming)</h3>
-          <p>Ollama/Gemma 4 vs MLX comparison.</p>
-        </card>
-      </div>
+  
+    <section class="comparison-container">
+      <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Architectural Evolution: MLX vs. Ollama</h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Capability Axis</th>
+            <th>Legacy (ML.X/Qwen)</th>
+            <th>Target (Ollama/Gemma)</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="axis-name">Runtime Stability</td>
+            <td>Variable/Environment-heavy</td>
+            <td><span class="model-id">High-Stability</span></td>
+            <td class="diff-up">↑</td>
+          </tr>
+          <tr>
+            <td class="axis-name">Integration Surface</td>
+            <td>Custom/Complex</td>
+            <td><span class="model-id">OpenAI-Compatible</span></td>
+            <td class="diff-up">↑</td>
+          </tr>
+          <tr>
+            <td class="axis-name">Reasoning Depth</td>
+            <td>Good/Task-specific</td>
+            <td><span class="model-id">Superior (Gemma 4)</span></td>
+            <td class="diff-up">↑</td>
+          </tr>
+          <tr>
+            <td class="axis-name">Deployment Complexity</td>
+            <td>High (Local setup)</td>
+            <td><span class="model-id">Low (Service-First)</span></td>
+            <td class="diff-down">↓</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
-
-    <section class="section">
-      <h2 style="font-size: 1.2rem;">CURRENT ROUTING ARCHITECTURE</h2>
-      <div class="insights">
-        <article class="card">
-          <h3>Fast Default</h3>
-          <p><span class="model-tag">Qwen2.5-7B</span> (MLX Legacy)</p>
-        </article>
-        <article class="card">
-          <h3>Target Specialist</h3>
-          <p><span class="model-tag">gemma4:26b</span> (Ollama Target)</p>
-        </article>
-      </div>
+  
+    <section class="artifact-grid">
+      <a href="./docs/migration/current-state-and-roadmap.md" class="artifact-card">
+        <h3>Transition Roadmap</h3>
+        <p>The strategic plan for the migration era.</p>
+      </a>
+      <a href="./runs/index.html" class="artifact-card">
+        <h3>Benchmark Catalog</h3>
+        <p>Structured regression and performance data.</p>
+      </a>
+      <a href="./run4/index.html" class="artifact-card">
+        <h3>Run 4 Archive</h3>
+        <p>The final state of the MLX-centric studies.</p>
+      </a>
+      <a href="https://github.com/kermitv/mlx-lab" class="artifact-card">
+        <h3>Source Repository</h3>
+        <p>The ground truth for all artifacts and scripts.</p>
+      </a>
     </section>
-
-    <footer style="margin-top: 40px; opacity: 0.7; font-size: 0.8rem;">
-      MLX Lab | Research-driven documentation for local-first inference.
+  
+    <footer class="footer">
+      <p>&copy; 2026 MLX Lab Research. All data is versioned and reproducible.</p>
     </footer>
-  </main>
+  </app>
+</main>
 </body>
 </html>
+
 
